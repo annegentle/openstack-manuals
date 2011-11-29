@@ -17,7 +17,14 @@
             network administrators understand the needs for networks
             and public IP addresses for accessing the APIs and VMs as
             necessary, this section offers recommendations and
-            required minimum sizes.</para>
+            required minimum sizes. Throughput of at least 1000 Mbps
+            is suggested. </para>
+        <para>For OpenStack Compute, networking is configured on
+            multi-node installations between the physical machines on
+            a single subnet. For networking between virtual machine
+            instances, three network options are available: flat,
+            DHCP, and VLAN. Two NICs (Network Interface Cards) are
+            recommended on the server running nova-network.</para>
         <para>Management Network (RFC1918 IP Range, not publicly
             routable): This network is utilized for all inter-server
             communications within the cloud infrastructure.</para>
@@ -35,15 +42,15 @@
             network is utilized for providing Public IP accessibility
             to selected cloud instances.</para>
         <para>Minimum size: 16 IPs (CIDR /28)</para></section>
-    <section xml:id="hardware_planning"><title>Hardware Planning</title><para/></section>
-    
     <section xml:id="system-requirements">
             <title>System Requirements</title>
             <para><emphasis role="bold">Hardware</emphasis>: OpenStack
             components are intended to run on standard hardware.
             Recommended hardware configurations for a minimum
             production deployment are as follows for the cloud
-            controller nodes and compute nodes. </para>
+            controller nodes and compute nodes for Compute and the
+            Image Service, and object, account, container, and proxy
+            servers for Object Storage. </para>
         <table rules="all">
             <caption>Hardware Recommendations </caption>
             <col width="20%"/>
@@ -105,6 +112,42 @@
                         <para>For LXC, the VT extensions are not required.</para>
                     </td>
                 </tr>
+                <tr><td><para>Object Storage object servers</para></td>
+                    <td>
+                        <para>Processor: dual quad core</para><para>Memory: 8 or 12 GB RAM</para>
+                        <para>Disk space: optimized for cost per
+                            GB</para>
+                        <para>Network: one 1 GB Network Interface Card
+                            (NIC)</para></td>
+                <td><para>The amount of disk space depends on how much you can fit into
+                            the rack efficiently. You want to optimize
+                            these for best cost per GB while still
+                            hoping for industry-standard failure
+                            rates.</para>
+                        <para>As an example, Rackspace runs Cloud
+                            Files storage servers with 24 2T SATA
+                            drives and 8 cores of processing power.
+                            Most services support either a worker or
+                            concurrency value in the settings. This
+                            allows the services to make effective use
+                            of the cores available.</para></td></tr>
+                <tr><td><para>Object Storage container/account servers</para></td><td>
+                        <para>Processor: dual quad core</para>
+                        <para>Memory: 8 or 12 GB RAM</para>
+                        <para>Network: one 1 GB Network Interface Card
+                            (NIC)</para></td>
+                    <td><para>Optimized for IOPS due to tracking with SQLite databases.</para></td></tr>
+                <tr><td><para>Object Storage proxy server</para></td>
+                    <td>
+                        <para>Processor: dual quad core</para><para>Network: one 1 GB Network Interface Card (NIC)</para></td>
+                    <td><para>Higher network throughput offers better performance for
+                            supporting many API requests.</para>
+                        <para>Optimize your proxy servers for best CPU
+                            performance. The Proxy Services are more
+                            CPU and network I/O intensive. If you are
+                            using 10g networking to the proxy, or are
+                            terminating SSL traffic at the proxy,
+                            greater CPU power will be required.</para></td></tr>
             </tbody>
         </table>
         <para><emphasis role="bold">Operating System</emphasis>: OpenStack currently has packages
@@ -112,19 +155,26 @@
             are maintained by community members, refer to <link
                 xlink:href="http://wiki.openstack.org/Packaging"
                 >http://wiki.openstack.org/Packaging</link> for additional links. </para>
-            <para><emphasis role="bold">Networking</emphasis>: 1000 Mbps are suggested. For
-            OpenStack Compute, networking is configured on multi-node installations between the
-            physical machines on a single subnet. For networking between virtual machine instances,
-            three network options are available: flat, DHCP, and VLAN. Two NICs (Network Interface
-            Cards) are recommended on the server running nova-network. </para>
-            <para><emphasis role="bold">Database</emphasis>: For OpenStack Compute, you need access
-            to either a PostgreSQL or MySQL database, or you can install it as part of the OpenStack
-            Compute installation process.</para>
-        <para><emphasis role="bold">Permissions</emphasis>: You can install OpenStack Compute
-            either as root or as a user with sudo permissions if you configure the sudoers file to
-            enable all the permissions. </para>
-        <para><emphasis role="bold">Network Time Protocol</emphasis>: You must install a time synchronization program such as NTP to keep your cloud
-            controller and compute nodes talking to the same time server to avoid problems scheduling VM launches on compute nodes.</para>
+            <para><emphasis role="bold">Database</emphasis>: For
+            OpenStack Compute, you need access to either a PostgreSQL
+            or MySQL database, or you can install it as part of the
+            OpenStack Compute installation process. For Object
+            Storage, the container and account servers use SQLite, and
+            you can install it as part of the installation
+            process.</para>
+        <para><emphasis role="bold">Permissions</emphasis>: You can
+            install OpenStack Compute, the Image Service, or Object
+            Storage either as root or as a user with sudo permissions
+            if you configure the sudoers file to enable all the
+            permissions. </para>
+        <para><emphasis role="bold">Network Time Protocol</emphasis>:
+            You must install a time synchronization program such as
+            NTP. For Compute, time synchronization keeps your cloud
+            controller and compute nodes talking to the same time
+            server to avoid problems scheduling VM launches on compute
+            nodes. For Object Storage, time synchronization ensure the
+            object replications are accurately updating objects when
+            needed so that the freshest content is served.</para>
     </section><section xml:id="example-installation-architecture">
         <title>Example Installation Architectures</title>
         <para>OpenStack architecture consists of these major
@@ -202,24 +252,17 @@
     <section xml:id="installing-openstack-compute-on-ubuntu">
         <title>Installing OpenStack Compute on Ubuntu </title>
         <para>How you go about installing OpenStack Compute depends on your goals for the
-            installation. You can use an ISO image, you can use a scripted installation, and you can
-            manually install with a step-by-step installation.</para>
-        
-        
-        <section xml:id="iso-ubuntu-installation">
-            <title>ISO Distribution Installation</title>
-            <para>You can download and use an ISO image that is based on a Ubuntu Linux Server 10.04
-                LTS distribution containing only the components needed to run OpenStack Compute. See
-                    <link xlink:href="http://sourceforge.net/projects/stackops/files/"
-                    >http://sourceforge.net/projects/stackops/files/</link> for download files and
-                information, license information, and a README file. For documentation on the
-                StackOps distro, see <link xlink:href="http://docs.stackops.org">http://docs.stackops.org</link>. For free support, go to
-                <link xlink:href="http://getsatisfaction.com/stackops">http://getsatisfaction.com/stackops</link>.</para></section>
+            installation. You can use a scripted installation or you can
+            manually install with a step-by-step installation. There's also an ISO distribution for OpenStack Compute. 
+        </para>
         <section xml:id="scripted-ubuntu-installation">
-            <title>Scripted Installation</title>
-            <para>You can download a script for a standalone install for proof-of-concept, learning, or for development purposes for Ubuntu 11.04 at <link
+            <title>Compute Scripted Installations</title>
+            <para>You can download a script for a standalone install
+                for proof-of-concept, learning, or for development
+                purposes for Ubuntu 11.04 at <link
                     xlink:href="http://devstack.org"
-                >https://devstack.org</link>.</para>
+                    >https://devstack.org</link>. This is not a
+                permanent installation.</para>
             
             <orderedlist>
                 <listitem><para>Install Ubuntu 11.04 (Natty):</para> <para>In order to correctly install all the dependencies, we assume a specific version of Ubuntu to
@@ -243,13 +286,40 @@
                 </listitem>
 
             </orderedlist>
+            <para>You can also install a more permanent deployment using an upstart script after running the devstack script.</para> 
+                <para>The basic idea is that once you like what
+                stack.sh has done to your system, you can convert them
+                into upstart services. The additions with this script
+                are: run services like daemons instead of in screens;
+                store logs in files; automatic start up after a
+                reboot.</para>
+                
+                <para>It works with glance- services, nova- services,
+                novnc, and keystone, but not with quantum or swift as
+                of November 22 2011. Here are the basic steps.</para>
+            <orderedlist>
+                <listitem><para>Ensure you've run ./stack.sh with all the configuration you need for your systems.</para></listitem>
+                <listitem>
+                <para>Download the upstart scripts:</para>
+                <literallayout class="monospaced">git clone git://github.com/maoy/devstack/tree/upstart.git</literallayout>
+                <para>The devstack repo contains a script that installs OpenStack Compute, the Image
+                    Service and the Identity Service and offers templates for configuration
+                    files plus data scripts. </para></listitem>
+                <listitem><para>Run the upstart install script.</para>
+                <literallayout>./upstart.sh install</literallayout></listitem>
+            </orderedlist>
+            <para>Now the services are installed. To use them, either
+                reboot to get rid of the services started by stack.sh,
+                and automatically start those services, or do killall
+                screen, then: </para><literallayout class="monospaced">./upstart.sh start</literallayout>
         </section>
         <section xml:id="manual-ubuntu-installation">
             <title>Walkthrough an Installation</title>
-            <para>The manual installation involves installing from
-                packages on Ubuntu 11.04 as a user with root
-                permission. Depending on your environment, you may
-                need to prefix these commands with sudo.</para>
+            <para>The manual installation involves installing
+                OpenStack Compute from packages on Ubuntu 11.04 as a
+                user with root permission. Depending on your
+                environment, you may need to prefix these commands
+                with sudo.</para>
             <para>Our assumptions for this installation are that you
                 have a base Ubuntu Server 11.04 ready. For this
                 installation, use the following assumptions:</para>
@@ -310,15 +380,18 @@
                     <itemizedlist><listitem><para>eth0: pub IP, gateway</para></listitem>
                     <listitem><para>br100, no ports, stp off, fd 0, first address from fixed_range</para></listitem>
                     <listitem><para>Install bridge-utils:</para><literallayout class="monospaced">sudo apt-get install bridge-utils</literallayout></listitem></itemizedlist>
-                    <para>Restart networking.</para>
+                    <para>Lastly, restart networking to have these
+                    changes take effect.</para>
                     <literallayout class="monospaced">restart networking</literallayout></section>
             <section xml:id="installing-the-cloud-controller">
                 <title>Installing the Cloud Controller</title>
                 <para>First, you need to add a signing key for the
                     Cloud Builders repository that contains packages
-                    that are known and tested to work together. Then
-                    add a repository entry pointing to it and update
-                    your repo pointer with an apt-get command. </para>
+                    that are known and tested to work together, such
+                    as diablo-5 and diablo-final. Once you add the
+                    signing key, you add a repository entry pointing
+                    to it and update your repo pointer with an apt-get
+                    command. </para>
                 <literallayout class="monospaced">sudo apt-key adv --keyserver hkp://subkeys.pgp.net --recv F87CBDE0</literallayout>
                 <literallayout class="monospaced">sudo echo "deb http://ops.rcb.me/packages maverick diablo-d5" > /etc/apt/sources.list.d/rcb-sources.list</literallayout>
                 <para><literallayout>sudo apt-get update</literallayout>Install
@@ -445,19 +518,48 @@ template1=#\q</literallayout>
                     more information about instances, euca2ools and mysql-client packages should be
                     installed on any additional Compute nodes.</para>
             </section>
-            <section xml:id="restart-nova-services">
-                <title>Restart All Relevant Services on the Compute Node</title>
-                <para>On both nodes, restart all six services in total, just to cover the entire
+            <section xml:id="minimum-configuration-settings">
+                <title>Minimum Configuration Settings</title>
+                <para>Many of the settings for Compute services are stored in the /etc/nova/nova.conf file. Here are the relevant settings for getting a minimal install running. Refer to the Admin Manual for guidance on more configuration options.</para>
+                <para>Set the hypervisor by editing /etc/nova/nova.conf. It defaults to "kvm", but if you are working within a VM already, switch to "qemu")
+                </para>
+                <para>Ensure the database connection defines your backend data store, for example, add "--sql_connection=mysql://[ user ]:[ pass ]@[ primary IP ]/[ db name ]".</para>
+                <para>Add these settings to /etc/nova/nova.conf for the network configuration assumptions made for this installation scenario.</para>                
+                <literallayout class="monospaced">--network_manager=nova.network.manager.FlatDHCPManager
+                --fixed_range=192.168.100/24
+                --flat_network_dhcp_start=192.168.100.2
+                --public_interface=eth0
+                --flat_interface=br100</literallayout>
+                <para>Create the tables in your backend data store</para>
+                <literallayout class="monospaced">nova-manage db sync</literallayout>
+                
+                <para>On both nodes, restart all services in total, just to cover the entire
                     spectrum: </para>
                 <para>
                     <literallayout class="monospaced">
-restart libvirt-bin; restart nova-network; restart nova-compute;
-restart nova-api; restart nova-objectstore; restart nova-scheduler
+restart nova-api
+restart nova-compute
+restart nova-network
+restart nova-objectstore
+restart nova-scheduler
+restart libvirt-bin
+/etc/init.d/rabbitmq-server restart
                     </literallayout>
                 </para>
-                <para>All nova services are now installed, the rest of your steps involve specific configuration steps. Please refer to <link xlink:href="#configuring-openstack-compute-basics">Configuring Compute</link> for additional information. </para>
+                <para>All nova services are now installed. Next you
+                    can install and configure the Image Service,
+                    Glance.</para>
             </section>
         </section>
+        <section xml:id="iso-ubuntu-installation">
+            <title>Compute ISO Distribution Installation</title>
+            <para>You can download and use an ISO image that is based on a Ubuntu Linux Server 10.04
+                LTS distribution containing only the components needed to run OpenStack Compute. See
+                <link xlink:href="http://sourceforge.net/projects/stackops/files/"
+                    >http://sourceforge.net/projects/stackops/files/</link> for download files and
+                information, license information, and a README file. For documentation on the
+                StackOps distro, see <link xlink:href="http://docs.stackops.org">http://docs.stackops.org</link>. For free support, go to
+                <link xlink:href="http://getsatisfaction.com/stackops">http://getsatisfaction.com/stackops</link>.</para></section>
     </section>
     <section xml:id="installing-openstack-compute-on-rhel6">
         <title>Installing OpenStack Compute on Red Hat Enterprise Linux 6 </title>
