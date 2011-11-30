@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xml:id="manual-ubuntu-installation"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+    <title>Packaged Compute Installation with the Image and Identity
+        Services</title>
+    <para>The manual installation involves installing
+        OpenStack Compute from packages on Ubuntu 11.04 as a
+        user with root permission. Depending on your
+        environment, you may need to prefix these commands
+        with sudo.</para>
+    <para>Our assumptions for this installation are that you
+        have a base Ubuntu Server 11.04 ready. For this
+        installation, use the following assumptions:</para>
+    <para>
+        <itemizedlist>
+            <listitem>
+                <para>Ensure that the server can resolve its
+                    own hostname, otherwise RabbitMQ cannot
+                    start.</para>
+            </listitem>
+            <listitem>
+                <para>You need an LVM volume group called
+                    "nova-volumes" to provide persistent
+                    storage to guest VMs. Either create this
+                    during the installation or leave some free
+                    space to create it prior to installing
+                    nova services.</para>
+            </listitem>
+            <listitem>
+                <para>10.0.2.15 is the primary IP for our host
+                    on eth0.</para>
+            </listitem>
+            <listitem>
+                <para>192.168.11.0/24 as the fixed range for
+                    our gust VMs, connected to the host via
+                    br100.</para>
+            </listitem>
+            <listitem>
+                <para>FlatDHCP with a single network
+                    interface.</para>
+            </listitem>
+            <listitem>
+                <para>Ensure the operating system is
+                    up-to-date by running
+                    <command>apt-get
+                        update</command> and
+                    <command>apt-get upgrade</command>
+                    prior to the installation.</para>
+            </listitem>
+        </itemizedlist>
+    </para>
+    <para>This installation process walks through installing a
+        cloud controller node and a compute node using a set
+        of packages that are known to work with each other.
+        The cloud controller node contains all the nova-
+        services including the API server and the database
+        server. The compute node needs to run only the
+        nova-compute service. You only need one nova-network
+        service running in a multi-node install. You cannot
+        install nova-objectstore on a different machine from
+        nova-compute (production-style deployments will use an
+        Image Service (Glance) server for virtual
+        images).</para>
+    <section xml:id="preconfiguring-the-network"><title>Pre-configuring the network</title>
+        <para>These instructions are for using the FlatDHCP networking mode with a single network interface. More complex configurations are described in the networking section, but this configuration is known to work. 
+        </para>
+        <para>First, setup your /etc/network/interfaces file with these settings: </para>
+        <itemizedlist><listitem><para>eth0: pub IP, gateway</para></listitem>
+            <listitem><para>br100, no ports, stp off, fd 0, first address from fixed_range</para></listitem>
+            <listitem><para>Install bridge-utils:</para><literallayout class="monospaced">sudo apt-get install bridge-utils</literallayout></listitem></itemizedlist>
+        <para>Lastly, restart networking to have these
+            changes take effect.</para>
+        <literallayout class="monospaced">restart networking</literallayout></section>
+    <section xml:id="installing-the-cloud-controller">
+        <title>Installing the Cloud Controller</title>
+        <para>First, you need to add a signing key for the
+            Cloud Builders repository that contains packages
+            that are known and tested to work together, such
+            as diablo-d5 or diablo-final. Once you add the
+            signing key, you add a repository entry pointing
+            to it and update your repo pointer with an apt-get
+            command. </para>
+        <literallayout class="monospaced">sudo apt-key adv --keyserver hkp://subkeys.pgp.net --recv F87CBDE0</literallayout>
+        <literallayout class="monospaced">sudo echo "deb http://ops.rcb.me/packages maverick diablo-final" > /etc/apt/sources.list.d/rcb-sources.list</literallayout>
+        <para><literallayout>sudo apt-get update</literallayout>Install
+            the messaging queue server, RabbitMQ.</para>
+        <literallayout class="monospaced">sudo apt-get install rabbitmq-server</literallayout>
+        <para>Now, install the Python dependencies. </para>
+        <literallayout class="monospaced">sudo apt-get install python-greenlet  </literallayout>
+        <note><para>You can use either MySQL or PostgreSQL.</para></note>
+        <para>Install the required nova- packages, and dependencies are automatically
+            installed.</para>
+        <literallayout class="monospaced">
+sudo apt-get install nova-volume nova-vncproxy nova-api nova-ajax-console-proxy
+sudo apt-get install nova-doc nova-scheduler nova-objectstore
+sudo apt-get install nova-network nova-compute
+sudo apt-get install glance
+</literallayout>
+        <para>Install the supplemental tools such as euca2ools and unzip.</para>
+        <literallayout class="monospaced">sudo apt-get install euca2ools unzip</literallayout>
+        <para> Next set up the database, either MySQL or PostgreSQL, with a database named "nova" and a user named "nova" granting the "nova" user full access to the database.</para>
+        </section>
+    <section xml:id="installing-the-compute-node">
+        <title>Installing the Compute Node</title>
+        <para>There are many different ways to perform a multinode install of Compute. In
+            this case, you can install all the nova- packages and dependencies as you did
+            for the Cloud Controller node, or just install nova-network and nova-compute.
+            Your installation can run any nova- services anywhere, so long as the service
+            can access nova.conf so it knows where the rabbitmq server is installed.</para>
+        <para>The Compute Node is where you configure the Compute network, the networking
+            between your instances. </para>
+        <para>Because you may need to query the database from the Compute node and learn
+            more information about instances, euca2ools and mysql-client packages should be
+            installed on any additional Compute nodes.</para>
+    </section>
+       
+    <section xml:id="minimum-configuration-settings">
+        <title>Minimum Configuration Settings</title>
+        <para>Many of the settings for Compute services are stored in the /etc/nova/nova.conf file. Here are the relevant settings for getting a minimal install running. Refer to the Admin Manual for guidance on more configuration options.</para>
+        <para>Set the hypervisor by editing /etc/nova/nova.conf. It
+            defaults to "kvm", but if you are working within a VM
+            already, switch to "qemu" on the --libvirt_type= line. </para>
+        <para>Ensure the database connection defines your backend data store, for example, add "--sql_connection=mysql://[ user ]:[ pass ]@[ primary IP ]/[ db name ]".</para>
+        <para>Add these settings to /etc/nova/nova.conf for the network configuration assumptions made for this installation scenario.</para>                
+        <literallayout class="monospaced">--network_manager=nova.network.manager.FlatDHCPManager
+--fixed_range=192.168.100/24
+--flat_network_dhcp_start=192.168.100.2
+--public_interface=eth0
+--flat_interface=br100</literallayout>
+        <para>Create the tables in your backend data store</para>
+        <literallayout class="monospaced">nova-manage db sync</literallayout>
+        
+        <para>On both nodes, restart all services in total, just to cover the entire
+            spectrum: </para>
+        <para>
+            <literallayout class="monospaced">
+restart nova-api
+restart nova-compute
+restart nova-network
+restart nova-objectstore
+restart nova-scheduler
+restart libvirt-bin
+/etc/init.d/rabbitmq-server restart
+                    </literallayout>
+        </para>
+        <para>All nova services are now installed. Next you
+            can install and configure the Image Service,
+            Glance.</para>
+    </section>
+    
+</section>

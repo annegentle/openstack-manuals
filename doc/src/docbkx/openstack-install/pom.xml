@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>com.rackspace.cloud.api</groupId>
                 <artifactId>clouddocs-maven-plugin</artifactId>
-                <version>1.0.5-SNAPSHOT</version>
+                <version>1.0.8-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>goal1</id>
@@ -74,7 +74,7 @@
                         <configuration>
                             <!-- These parameters only apply to webhelp -->
                             <enableDisqus>0</enableDisqus>
-                            <disqusShortname>openstackdocs</disqusShortname>
+                            <disqusShortname>openstackinstall</disqusShortname>
                             <enableGoogleAnalytics>1</enableGoogleAnalytics>
                             <googleAnalyticsId>UA-17511903-6</googleAnalyticsId>
                             <generateToc>
@@ -97,7 +97,7 @@
                                 <!-- Copies the figures to the correct location for webhelp -->
                                 
                                 <copy todir="${basedir}/target/docbkx/webhelp/openstack-install/openstack-install-guide/content/figures">
-                                    <fileset dir="${basedir}/src/docbkx/openstack-install/figures">
+                                    <fileset dir="${basedir}/figures">
                                         <include name="**/*.*" />
                                     </fileset>
                                 </copy>
@@ -105,7 +105,7 @@
                                 <!-- Copies webhelp (HTML output) to desired URL location on docs.openstack.org -->
                                                    
                                 <copy
-                                    todir="${basedir}/target/docbkx/webhelp/trunk/openstack-compute/install">
+                                    todir="${basedir}/target/docbkx/webhelp/trunk/openstack/install">
                                     <fileset
                                         dir="${basedir}/target/docbkx/webhelp/openstack-install-guide/">
                                         <include name="**/*" />
@@ -115,8 +115,8 @@
                                 <!--Moves PDFs to the needed placement -->
                                
                                 <move failonerror="false"
-                                    file="${basedir}/target/docbkx/pdf/os-compute-adminguide.pdf"
-                                    tofile="${basedir}/target/docbkx/webhelp/trunk/openstack-compute/admin/os-compute-adminguide-trunk.pdf"/>                
+                                    file="${basedir}/target/docbkx/pdf/openstack-install-guide.pdf"
+                                    tofile="${basedir}/target/docbkx/webhelp/trunk/openstack/install/os-install-guide-trunk.pdf"/>                
                                                        
                                 <!--Deletes leftover uneeded directories -->
                                 

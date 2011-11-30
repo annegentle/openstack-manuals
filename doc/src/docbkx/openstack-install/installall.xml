@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xml:id="ch_installing-openstack">
+        <title>Installing OpenStack</title>
+        <para>The OpenStack system has several key projects that are
+        separate installations but can work together depending on your
+        cloud needs: OpenStack Compute, OpenStack Object Storage,
+        OpenStack Identity Service, and OpenStack Image Service. You
+        can install any of these projects separately and then
+        configure them either as standalone or connected entities.
+        This guide walks through a few typical installations and
+        offers explanations for common configuration choices.</para>
+         
+    <xi:include href="compute-sys-requirements.xml" />
+    <xi:include href="network_planning.xml" />
+    <xi:include href="compute-packages-ubuntu-installation.xml" />
+    <xi:include href="install-config-glance.xml" />
+    <xi:include href="configuring-compute-basics.xml" />
+    <xi:include href="enable-access-security-group.xml" />
+    <xi:include href="nova-manage-initial-user-project.xml" />
+    </chapter>

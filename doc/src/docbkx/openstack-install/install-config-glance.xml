@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xml:id="install-config-glance"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+    <title>Installing and Configuring the Image Service</title>
+    <para>Install the Image service:</para>
+    <literallayout class="monospaced">apt-get install glance</literallayout>
+    <para>Configure the backend data store. For MySQL, create a
+        glance MySQL database and a glance MySQL user. Grant the
+        "gance" user full access to the glance MySQL
+        database.</para>
+    <para>Edit /etc/glance/glance-registry.conf to include
+        the --sql_connection to use the backend data store
+        you just created.</para>
+    <para>Create the tables in your backend data
+        store:</para>
+    <literallayout class="monospaced">glance-manage db_sync</literallayout>
+    <para>Now you can load your initial image and spin up
+        your first VM if you want to use the EC2 API and euca- commands. 
+        For the Compute API and Dashboard integration, you need to install the OpenStack Identity service, Keystone. </para>
+</section>
