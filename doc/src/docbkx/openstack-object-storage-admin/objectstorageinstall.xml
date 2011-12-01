@@ -5,6 +5,7 @@
         xml:id="ch_installing-and-configuring-openstack-object-storage">
 <title>Installing and Configuring OpenStack Object Storage</title>
         <xi:include href="../openstack-install/object-storage-sys-requirements.xml" />
-        <xi:include href="../openstack-install/install-object-storage-ubuntu.xml" />
+        <xi:include href="../openstack-install/object-storage-network-planning.xml" />
+        <xi:include href="../openstack-install/object-storage-install-ubuntu.xml" />
         <xi:include href="../openstack-install/configuring-object-storage-basics.xml" />
  </chapter>

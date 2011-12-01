@@ -3,7 +3,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
     xml:id="ch_installing-openstack">
-        <title>Installing OpenStack</title>
+        <title>Installing OpenStack Compute and Image Service</title>
         <para>The OpenStack system has several key projects that are
         separate installations but can work together depending on your
         cloud needs: OpenStack Compute, OpenStack Object Storage,
@@ -14,7 +14,7 @@
         offers explanations for common configuration choices.</para>
          
     <xi:include href="compute-sys-requirements.xml" />
-    <xi:include href="network_planning.xml" />
+    <xi:include href="compute-network-planning.xml" />
     <xi:include href="compute-packages-ubuntu-installation.xml" />
     <xi:include href="install-config-glance.xml" />
     <xi:include href="configuring-compute-basics.xml" />

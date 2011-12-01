@@ -4,13 +4,8 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
     
-    <title>System Requirements</title><para><emphasis role="bold">Hardware</emphasis>: OpenStack Object Storage specifically is designed
-        to run on commodity hardware. At Rackspace, our storage servers are
-        currently running fairly generic 4U servers with 24 2T SATA drives and 8
-        cores of processing power. RAID on the storage drives is not required and
-        not recommended. Swift's disk usage pattern is the worst case possible for
-        RAID, and performance degrades very quickly using RAID 5 or 6.
-    </para>
+    <title>System Requirements</title><para><emphasis role="bold">Hardware</emphasis>: OpenStack Object
+        Storage specifically is designed to run on commodity hardware.  </para>
     <table rules="all">
         <caption>Hardware Recommendations </caption>
         <col width="20%"/>
@@ -32,10 +27,17 @@
                 <para>Network: one 1 GB Network Interface Card
                     (NIC)</para></td>
             <td><para>The amount of disk space depends on how much you can fit into
-                the rack efficiently. You want to optimize
-                these for best cost per GB while still
-                hoping for industry-standard failure
-                rates.</para>
+                        the rack efficiently. You want to optimize
+                        these for best cost per GB while still getting
+                        industry-standard failure rates. At Rackspace,
+                        our storage servers are currently running
+                        fairly generic 4U servers with 24 2T SATA
+                        drives and 8 cores of processing power. RAID
+                        on the storage drives is not required and not
+                        recommended. Swift's disk usage pattern is the
+                        worst case possible for RAID, and performance
+                        degrades very quickly using RAID 5 or
+                        6.</para>
                 <para>As an example, Rackspace runs Cloud
                     Files storage servers with 24 2T SATA
                     drives and 8 cores of processing power.
@@ -48,7 +50,7 @@
                 <para>Memory: 8 or 12 GB RAM</para>
                 <para>Network: one 1 GB Network Interface Card
                     (NIC)</para></td>
-                <td><para>Optimized for IOPS due to tracking with SQLite databases.</para></td></tr>
+                <td><para>Optimized for IOPS due to tracking with SQLite databases. </para></td></tr>
             <tr><td><para>Object Storage proxy server</para></td>
                 <td>
                     <para>Processor: dual quad core</para><para>Network: one 1 GB Network Interface Card (NIC)</para></td>
