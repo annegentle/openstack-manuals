@@ -34,7 +34,7 @@
             </listitem>
             <listitem>
                 <para>192.168.11.0/24 as the fixed range for
-                    our gust VMs, connected to the host via
+                    our guest VMs, connected to the host via
                     br100.</para>
             </listitem>
             <listitem>

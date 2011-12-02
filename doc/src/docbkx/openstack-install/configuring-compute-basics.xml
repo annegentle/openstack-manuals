@@ -242,5 +242,5 @@ chmod g+rwx /dev/kvm
                 command:</para>
             <literallayout class="monospaced">nova-manage version list</literallayout>
         </section>
-        <xi:include href="migrating-from-cactus-to-diablo.xml"/>
+        
     </section>

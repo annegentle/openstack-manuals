@@ -31,9 +31,14 @@
             </annotation>
         </legalnotice>
         <abstract>
-            <para>The OpenStack™ Compute, Object Storage, Image Service, and Identity Service combined offer open source software for cloud administration and
-                management for any organization. This manual provides guidance for installing and deploying
-                the software that runs OpenStack. </para>
+            <para>The OpenStack™ system has several key projects that are
+                separate installations but can work together depending on your
+                cloud needs: OpenStack Compute, OpenStack Object Storage,
+                OpenStack Identity Service, and OpenStack Image Service. You
+                can install any of these projects separately and then
+                configure them either as standalone or connected entities.
+                This guide walks through a few typical installations and
+                offers explanations for common configuration choices.</para>
         </abstract>
         <revhistory>
             <revision>
@@ -50,7 +55,10 @@
         </revhistory>
     </info>
     <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
-    
+     
     <xi:include href="ch_installcomputeimage.xml"/>
     <xi:include href="ch_installobjectstorage.xml"/>
+    <xi:include href="ch_installidentity.xml" />
+    
+    
 </book>

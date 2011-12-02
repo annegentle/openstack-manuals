@@ -97,12 +97,12 @@
             and should create an instance from some image by the provided image
             ID and plug it into some network.
             <itemizedlist>
-              <listitem>At first Nova passes this token to Glance to get the
-                image stored somewhere in there.</listitem>
-              <listitem>After that, it asks Quantum to plug this new instance
+              <listitem><para>At first Nova passes this token to Glance to get the
+                image stored somewhere in there.</para></listitem>
+              <listitem><para>After that, it asks Quantum to plug this new instance
                 into a network; Quantum verifies whether the user has access to
                 the network in its own database and to the interface of VM by
-                requesting info in Nova.</listitem>
+                requesting info in Nova.</para></listitem>
             </itemizedlist>
             All the way this token travels between services so that they can
             ask Keystone or each other for additional information or some
@@ -110,7 +110,7 @@
         </listitem>
       </orderedlist>
       Here is a rough diagram of this process:
-      <figure><mediaobject><imageobject>
+      <figure><title>Flowchart</title><mediaobject><imageobject>
         <imagedata fileref="figures/keystone-flowchart.png" />
       </imageobject></mediaobject></figure></para>
   </section>

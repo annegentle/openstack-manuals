@@ -96,7 +96,7 @@
                             <postProcess>
                                 <!-- Copies the figures to the correct location for webhelp -->
                                 
-                                <copy todir="${basedir}/target/docbkx/webhelp/openstack-install/openstack-install-guide/content/figures">
+                                <copy todir="${basedir}/target/docbkx/webhelp/openstack-install/bk_openstackinstallguide/content/figures">
                                     <fileset dir="${basedir}/figures">
                                         <include name="**/*.*" />
                                     </fileset>
@@ -107,7 +107,7 @@
                                 <copy
                                     todir="${basedir}/target/docbkx/webhelp/trunk/openstack/install">
                                     <fileset
-                                        dir="${basedir}/target/docbkx/webhelp/openstack-install-guide/">
+                                        dir="${basedir}/target/docbkx/webhelp/bk_openstackinstallguide/">
                                         <include name="**/*" />
                                     </fileset>
                                 </copy>
@@ -131,7 +131,7 @@
                     <xincludeSupported>true</xincludeSupported>
                     <sourceDirectory>.</sourceDirectory>
                     <includes>
-                        openstack-install-guide.xml
+                        bk_openstackinstallguide.xml
                     </includes>
                     <profileSecurity>reviewer</profileSecurity>
                     <branding>openstack</branding>
