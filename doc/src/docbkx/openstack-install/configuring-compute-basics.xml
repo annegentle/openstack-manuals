@@ -11,7 +11,7 @@
             read about additional configuration information in a separate chapter as well.</para>
         <section xml:id="setting-flags-in-nova-conf-file">
             <title>Setting Flags in the nova.conf File</title>
-            <para>The configuration file nova.conf is installed in /etc/nova by default. You only
+            <para> You only
                 need to do these steps when installing manually, the scripted installation above
                 does this configuration during the installation. A default set of options are
                 already configured in nova.conf when you install manually. The defaults are as

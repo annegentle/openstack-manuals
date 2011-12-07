@@ -7,7 +7,7 @@
     version="5.0"
     xml:id="openstack-compute-admin-manual">
     <?rax pdf.url="../os-install-guide-trunk.pdf"?>
-    <title>OpenStack Installation Manual</title>
+    <title>OpenStack Install and Deploy Manual</title>
     <info>
         <author>
             <personname>
@@ -24,7 +24,7 @@
         </copyright>
         <releaseinfo>trunk</releaseinfo>
         <productname>OpenStack</productname>
-        <pubdate>2011-11-23</pubdate>
+        <pubdate>2011-12-07</pubdate>
         <legalnotice role="apache2">
             <annotation>
                 <remark>Copyright details are filled in by the template.</remark>

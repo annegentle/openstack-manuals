@@ -4,41 +4,28 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
     <title>Setting up the SQL Database (MySQL) on the Cloud Controller</title>
-    <para>You must use a SQLAlchemy-compatible database, such as MySQL or
+    <para>You must use a SQLAlchemy-compatible database with OpenStack Compute, such as MySQL or
         PostgreSQL. This example shows MySQL. </para>
-    
-    <literallayout class="monospaced">sudo apt-get install python-mysqldb mysql-server</literallayout>
-    
-    <para>First you can set environments with a "pre-seed" line to bypass all
-        the installation prompts, running this as root: </para>
-    <para>
-        <literallayout class="monospaced">bash
-MYSQL_PASS=nova
-NOVA_PASS=notnova
-cat &lt;&lt;MYSQL_PRESEED | debconf-set-selections
-mysql-server-5.1 mysql-server/root_password password $MYSQL_PASS
-mysql-server-5.1 mysql-server/root_password_again password $MYSQL_PASS
-mysql-server-5.1 mysql-server/start_on_boot boolean true
-MYSQL_PRESEED</literallayout>
-    </para>
-    <para>Next, install MySQL with: <literallayout class="monospaced">sudo apt-get install -y mysql-server</literallayout>
-    </para>
-    <para>Edit /etc/mysql/my.cnf to change "bind-address" from localhost
-        (127.0.0.1) to any (0.0.0.0) and restart the mysql service: </para>
+    <para>First, install MySQL with:
+        <literallayout class="monospaced">sudo apt-get install python-mysqldb mysql-server</literallayout></para>
+    <para>During the install, you'll be prompted for the mysql root
+        password. Enter a password of your choice and verify it.</para>
+    <para>Start the mysql command line client by running:</para>
+    <para><literallayout class="monospaced">mysql -u root -p</literallayout></para>
+    <para>Enter the mysql root user's password when prompted.</para>
+    <para>To configure the MySQL database, create the nova database. </para>
+    <para><literallayout class="monospaced">mysql> CREATE DATABASE nova;</literallayout></para>
+    <para>Create a MySQL user for the newly-created nova database that
+        has full control of the database. </para>
+    <para><literallayout class="monospaced">mysql> GRANT ALL ON nova.* TO 'nova'@'%' IDENTIFIED BY
+        'yourpassword';</literallayout></para>
+    <para>Enter quit at the mysql> prompt to exit MySQL.</para>
+    <para><literallayout class="monospaced">mysql> quit</literallayout></para>
+    <para>Edit /etc/mysql/my.cnf to change "bind-address" from
+        localhost (127.0.0.1) to any (0.0.0.0) and restart the mysql
+        service: </para>
     <para>
         <literallayout class="monospaced">sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
 sudo service mysql restart</literallayout></para>
-    <para>To configure the MySQL database, create the nova database:  </para>
-    <literallayout class="monospaced">sudo mysql -u root -p$MYSQL_PASS -e 'CREATE DATABASE nova;'</literallayout>
-    
-    <para>Update the DB to give user ‘nova’@’%’ full control of the nova
-        database:</para>
-    <para>
-        <literallayout class="monospaced">sudo mysql -u root -p$MYSQL_PASS -e "GRANT ALL PRIVILEGES ON *.* TO 'nova'@'%' WITH GRANT OPTION;"</literallayout>
-    </para>
-    <para>Set MySQL password for the user "nova@%"</para>
-    <para>
-        <literallayout class="monospaced">sudo mysql -u root -p$MYSQL_PASS -e "SET PASSWORD FOR 'nova'@'%' = PASSWORD('$NOVA_PASS');"</literallayout>
-    </para>
     <para>The database will be populated after running the nova-manage db sync command.</para>
 </section>

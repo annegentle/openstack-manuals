@@ -773,9 +773,8 @@ export NOVA_VERSION=1.1
                     difference between a name and an ID. ; thus, the integration breaks a running
                     Cactus cloud. Since we were looking for a smooth integration on a running
                     platform, Keystone has not been integrated. </para>
-                <para>
-                    If you want to integrate Keystone, here are the steps you would follow : 
-                </para>
+                <para>If you want to integrate Keystone, here are the
+            steps you would follow : </para>
                 <orderedlist>
                     <listitem>
                         <para><emphasis role="bold">Export the current project</emphasis></para>
