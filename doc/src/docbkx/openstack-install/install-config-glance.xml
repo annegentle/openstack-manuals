@@ -32,8 +32,14 @@
     <para><literallayout class="monospaced">mysql> quit</literallayout></para>
     <para>Edit /etc/glance/glance-registry.conf to include the
         sql_connection to use the backend data store you just created,
-        such as
-        mysql://glance:yourpassword@192.168.206.129/glance.</para>
+        such as mysql://glance:yourpassword@192.168.206.130/glance.
+        Here is the relevant section:</para>
+    <para>
+        <literallayout># SQLAlchemy connection string for the reference implementation 
+# registry server. Any valid SQLAlchemy connection string is fine. 
+# See: http://www.sqlalchemy.org/docs/05/reference/sqlalchemy/connections.html#sqlalchemy.create_engine 
+sql_connection = mysql://glance:glancepwd@192.168.206.130/glance</literallayout>
+    </para>
     <para>Create the tables in your backend data
         store:</para>
     <literallayout class="monospaced">sudo glance-manage db_sync</literallayout>

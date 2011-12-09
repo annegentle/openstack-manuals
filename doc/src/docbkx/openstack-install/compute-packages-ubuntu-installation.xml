@@ -33,9 +33,8 @@
                     on eth0.</para>
             </listitem>
             <listitem>
-                <para>192.168.11.0/24 as the fixed range for
-                    our guest VMs, connected to the host via
-                    br100.</para>
+                <para>192.168.100.0/24 as the fixed range for our
+                    guest VMs, connected to the host via br100.</para>
             </listitem>
             <listitem>
                 <para>FlatDHCP with a single network
@@ -92,8 +91,9 @@ bridge_fd 0
         <literallayout class="monospaced">sudo apt-get install bridge-utils</literallayout>
         <para>Ensure that you set up the bridge. </para>
         <literallayout class="monospaced">sudo brctl addbr br100</literallayout>
-        <para>Lastly, restart networking to have these
-            changes take effect.</para>
+        <para>Lastly, restart networking to have these changes take
+            effect. (This method is deprecated but "<code>restart
+                networking</code>" doesn't always work.)</para>
         <literallayout class="monospaced">sudo /etc/init.d/networking restart</literallayout></section>
     <section xml:id="installing-the-cloud-controller">
         <title>Installing the Cloud Controller</title>
@@ -126,8 +126,8 @@ bridge_fd 0
             installed.</para>
         <literallayout class="monospaced">sudo apt-get install nova-volume nova-vncproxy nova-api nova-ajax-console-proxy nova-doc nova-scheduler 
 sudo apt-get install nova-network nova-compute</literallayout>
-        <para>Install the supplemental tools such as euca2ools and unzip.</para>
-        <literallayout class="monospaced">sudo apt-get install euca2ools unzip</literallayout>
+        <para>Install the supplemental tool unzip.</para>
+        <literallayout class="monospaced">sudo apt-get install unzip</literallayout>
         <para>Next set up the database, either MySQL or PostgreSQL,
             with a database named "nova" and a user named "nova"
             granting the "nova" user full access to the
@@ -149,8 +149,8 @@ sudo apt-get install nova-network nova-compute</literallayout>
             since the file contains your MySQL server’s username and password. You also want to
             ensure that the nova user belongs to the nova group.</para>
         <literallayout class="monospaced">sudo usermod -g nova nova
-chown -R root:nova /etc/nova
-chmod 640 /etc/nova/nova.conf</literallayout>
+sudo chown -R root:nova /etc/nova
+sudo chmod 640 /etc/nova/nova.conf</literallayout>
         <para>The hypervisor is set either by editing
             /etc/nova/nova.conf or referring to nova-compute.conf in
             the nova.conf file. The hypervisor defaults to "kvm", but
@@ -196,18 +196,20 @@ chmod 640 /etc/nova/nova.conf</literallayout>
         <para>Create the tables in your backend data store by running
             the following command:</para>
         <literallayout class="monospaced">sudo nova-manage db sync</literallayout>
+        <para>If you see any response, you can look in
+            /var/log/nova/nova-manage.log to see the problem. No
+            response means the command completed correctly and your
+            nova database is now populated.</para>
         
         <para>On both nodes, restart all services in total, just to cover the entire
             spectrum: </para>
         <para>
-            <literallayout class="monospaced">
-sudo restart nova-api
+            <literallayout class="monospaced">sudo restart nova-api
 sudo restart nova-compute
 sudo restart nova-network
 sudo restart nova-scheduler
 sudo restart libvirt-bin
-sudo /etc/init.d/rabbitmq-server restart
-                    </literallayout>
+sudo /etc/init.d/rabbitmq-server restart      </literallayout>
         </para>
         <para>All nova services are now installed. Next you
             can install and configure the Image Service,

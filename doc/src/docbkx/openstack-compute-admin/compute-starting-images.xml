@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xml:id="starting-images"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+    <title>Starting Images</title>
+    <para>Once you have an installation, you want to get images that you can use in your Compute cloud.
+        We've created a basic Ubuntu image for testing your installation. First you'll download
+        the image, then use "uec-publish-tarball" to publish it:</para>
+    
+    <literallayout class="monospaced">image="ubuntu1010-UEC-localuser-image.tar.gz"
+wget http://c0179148.cdn1.cloudfiles.rackspacecloud.com/ubuntu1010-UEC-localuser-image.tar.gz
+tar xvfz $image </literallayout>
+        <para>In return you should see this listing.</para>
+        <literallayout class="monospaced">maverick-server-uec-amd64-floppy
+maverick-server-uec-amd64.img
+maverick-server-uec-amd64-loader
+maverick-server-uec-amd64-vmlinuz-virtual</literallayout>
+        
+    
+    
+    <para>Next you can use glance-upload commands to upload the image to the Image Service.</para>
+    
+    <para><literallayout class="monospaced">uec-publish-tarball ubuntu1010-UEC-localuser-image.tar.gz dub-bucket amd64</literallayout></para>
+    
+    <para>The command in return should output three references:<emphasis role="italic">
+        emi</emphasis>, <emphasis role="italic">eri</emphasis> and <emphasis role="italic"
+            >eki</emphasis>. You will next run nova image-list in order to obtain the ID of the
+        image you just uploaded.</para>
+    
+    
+    <para>Now you can schedule, launch and connect to the instance, which you do with the "nova"
+        command line. The ID of the image will be used with the <literallayout class="monospaced">nova boot</literallayout>command.</para>
+    <para>One thing to note here, once you publish the tarball, it has
+        to untar before you can launch an image from it. Using the
+        'nova list' command, and make sure the image has its status as
+        "ACTIVE".</para>
+    
+    <para><literallayout class="monospaced">nova image-list</literallayout></para>
+    
+    <para>Depending on the image that you're using, you need a public key to connect to it. Some
+        images have built-in accounts already created. Images can be shared by many users, so it
+        is dangerous to put passwords into the images. Nova therefore supports injecting ssh
+        keys into instances before they are booted. This allows a user to login to the instances
+        that he or she creates securely. Generally the first thing that a user does when using
+        the system is create a keypair. </para>
+    <para>Keypairs provide secure authentication to your instances. As part of the first boot of
+        a virtual image, the private key of your keypair is added to root’s authorized_keys
+        file. Nova generates a public and private key pair, and sends the private key to the
+        user. The public key is stored so that it can be injected into instances. </para>
+    <para>Keypairs are created through the api and you use them as a parameter when launching an
+        instance. They can be created on the command line using the following command :
+        <literallayout class="monospaced">nova keypair-add</literallayout>In order to list all the available options, you would run :<literallayout class="monospaced">nova help </literallayout>
+        Example usage:</para>
+    
+    <literallayout class="monospaced">
+nova keypair-add test > test.pem
+chmod 600 test.pem
+                    </literallayout>
+    
+    <para>Now, you can run the instances:</para>
+    <literallayout class="monospaced">nova boot --image 1 --flavor 1 --key_name test my-first-server</literallayout>
+    <para>Here's a description of the parameters used above:</para>
+    <itemizedlist>
+        <listitem>
+            <para><emphasis role="bold">--flavor</emphasis> what type of image to create. You
+                can get all the flavors you have by running
+                <literallayout class="monospaced">nova flavor-list</literallayout></para>
+        </listitem>
+        <listitem>
+            <para>
+                <emphasis role="bold">-key_ name</emphasis> name of the key to inject in to the
+                image at launch. </para>
+        </listitem>
+    </itemizedlist>          
+    <para> The instance will go from “BUILD” to “ACTIVE” in a short time, and you should
+        be able to connect via SSH using the 'ubuntu' account, with the password 'ubuntu':
+        (replace $ipaddress with the one you got from nova list): </para>
+    <para>
+        <literallayout class="monospaced">ssh ubuntu@$ipaddress</literallayout></para>
+    <para>The 'ubuntu' user is part of the sudoers group, so you can escalate to 'root'
+        via the following command:</para>
+    <para>
+        <literallayout class="monospaced">
+                       sudo -i
+                   </literallayout>
+    </para>
+</section>
