@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xml:id="install-config-keystone"
+<section xml:id="install-keystone"
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
@@ -42,7 +42,9 @@
     <para><literallayout class="monospaced">mysql> quit</literallayout></para>
     <para>Edit /etc/keystone/keystone.conf to include the
         --sql_connection to use the backend data store you just
-        created. Here is an example:</para>
+        created. Ensure that it is owned by root and chmod is set to
+        0644 since it contains your mysql password. Here is an
+        example:</para>
    
         <literallayout>[keystone.backends.sqlalchemy]
 # SQLAlchemy connection string for the reference implementation registry
@@ -52,11 +54,8 @@ sql_connection = mysql://keystone:yourpassword@192.168.206.130/keystone
 backend_entities = ['UserRoleAssociation', 'Endpoints', 'Role', 'Tenant',
                     'User', 'Credentials', 'EndpointTemplates', 'Token',
                     'Service']</literallayout>
-    <para>Restart the keystone service.</para>
     <para>Edit /etc/keystone/keystone.conf to use the IP address and
-        ports for your environment. Here is an example keystone.conf
-        to get you started. 
-        
+        ports for your environment. Here is an example keystone.conf.
         <literallayout class="monospaced">[DEFAULT]
 # Show more verbose log output (sets INFO log level output)
 verbose = False
@@ -148,36 +147,7 @@ paste.filter_factory = keystone.frontends.legacy_token_auth:filter_factory
 [filter:RAX-KEY-extension]
 paste.filter_factory = keystone.contrib.extensions.service.raxkey.frontend:filter_factory</literallayout></para>
     <para>Restart the Identity Service. </para>
-    <para>Now you add the default tenant, an administrator, and users
-        to get a working installation started. The initial tenanta,
-        username, and password is openstack, admin, and
-        secretword.</para>
-    <para>First, add a tenant named
-    openstack.</para>
-    <literallayout class="monospaced">keystone-manage tenant add openstack</literallayout>
-        <para>Now, assign a user and a password to that tenant.</para>
-<literallayout class="monospaced">keystone-manage user add admin secretword openstack</literallayout>
-        <para>Now add an invented token (any combination of numbers
-        and letters will do) to the admin user for the openstack
-        tenant and ensure there's an expiration date assigned. This
-        one expires in about four years.</para>
-<literallayout class="monospaced">keystone-manage token add 11121314151617181920 admin openstack 2015-02-05T00:0 </literallayout>
-        <para>Grant the ServiceAdmin role to the admin user.</para>
-<literallayout class="monospaced">keystone-manage role add Admin</literallayout> 
-        <para>Grant the Admin role to the admin user for the openstack tenant.</para>
-        <literallayout class="monospaced">keystone-manage role grant Admin admin</literallayout>
-        <para>Grant the Admin role to the admin user for the openstack tenant.</para>
-        <literallayout class="monospaced">keystone-manage role grant Admin admin openstack </literallayout>
-        <para>Add the Member role so that your tenants can have non-admin users. </para>
-<literallayout class="monospaced">keystone-manage role add Member</literallayout> 
-        <para>Okay, now that all your starter admins and tenant have
-        been created, let's move on to endpoints. </para>
-    <para>First add the Identity service, you can name it keystone.
-        <literallayout class="monospaced"> keystone-manage service add keystone identity </literallayout></para>
-    <para>Now add endpoint templates for the identity service you
-        named keystone, which put together the IP addresses, port
-        values, and API version number to make an entire endpoint.
-        <literallayout> keystone-manage endpointTemplates add RegionOne keystone #{node[:keystone][:publicURL]} #{node[:keystone][:adminURL]} #{node[:keystone][:internalURL]} 1
-        1 </literallayout></para>
-
+    <literallayout class="monospaced">sudo keystone restart</literallayout>
+<para>Next, you configure the Identity Service by defining roles and
+        users. </para>
 </section>

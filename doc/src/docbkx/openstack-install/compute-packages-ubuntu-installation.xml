@@ -145,9 +145,12 @@ sudo apt-get install nova-network nova-compute</literallayout>
             on more configuration options.</para>
         <para>Create a “nova” group, so you can set permissions on the configuration file: </para>
         <literallayout class="monospaced">sudo addgroup nova</literallayout>
-        <para>The nova.config file should have its owner set to root:nova, and mode set to 0640,
-            since the file contains your MySQL server’s username and password. You also want to
-            ensure that the nova user belongs to the nova group.</para>
+        <para>The nova.config file should have its owner set to
+            root:nova (or the username you're using to install
+            Compute), and mode set to 0640, since the file contains
+            your MySQL server’s username and password. You also want
+            to ensure that the nova user belongs to the nova
+            group.</para>
         <literallayout class="monospaced">sudo usermod -g nova nova
 sudo chown -R root:nova /etc/nova
 sudo chmod 640 /etc/nova/nova.conf</literallayout>
