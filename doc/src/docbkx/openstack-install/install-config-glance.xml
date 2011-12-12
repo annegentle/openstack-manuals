@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xml:id="install-config-glance"
+<section xml:id="install-glance"
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
@@ -16,6 +16,7 @@
     
     <para>Install the Image service:</para>
     <literallayout class="monospaced">sudo apt-get install glance</literallayout>
+ <section xml:id="configure-glance"><title>Configuring the Image Service</title>
     <para>Configure the backend data store. For MySQL, create a
         glance MySQL database and a glance MySQL user. Grant the
         "glance" user full access to the glance MySQL
@@ -38,7 +39,7 @@
         <literallayout># SQLAlchemy connection string for the reference implementation 
 # registry server. Any valid SQLAlchemy connection string is fine. 
 # See: http://www.sqlalchemy.org/docs/05/reference/sqlalchemy/connections.html#sqlalchemy.create_engine 
-sql_connection = mysql://glance:glancepwd@192.168.206.130/glance</literallayout>
+sql_connection = mysql://glance:yourpassword@192.168.206.130/glance</literallayout>
     </para>
     <para>Create the tables in your backend data
         store:</para>
@@ -46,5 +47,7 @@ sql_connection = mysql://glance:glancepwd@192.168.206.130/glance</literallayout>
     <para>Now you can load your initial image and spin up your first
         VM if you want to use the EC2 API and euca- or nova-client
         commands. For Dashboard integration, you need to install the
-        OpenStack Identity service, Keystone. </para>
+        OpenStack Identity service, Keystone. </para></section>   
+    
+    
 </section>

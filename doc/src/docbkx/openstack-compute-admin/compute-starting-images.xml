@@ -78,7 +78,7 @@ chmod 600 test.pem</literallayout>
         
         <para>If you are running on a single node and don't need to access the VMs from devices other than that node, you can set the 
             flat interface to the same value as --flat_network_bridge= in nova.conf. This setup stops this connectivity loss from occurring.</para>          
-</para>    <para>The instance will go from “BUILD” to “ACTIVE” in a
+<para>The instance will go from “BUILD” to “ACTIVE” in a
         relatively short time, and you should be able to connect via
         SSH using the 'ubuntu' account, with the password 'ubuntu':
         (replace $ipaddress with the one you got from nova list): </para>
