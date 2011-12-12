@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xml:id="identity-configure-keystone"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"><title>Defining Roles and Users in the Identity Service (Keystone)</title>
+<para>Before you begin, ensure that the OpenStack Compute and Image
+        services are installed and connect all databases prior to
+        configuring the Identity Service endpoints. </para>
+    <para>Next you add the default tenant, an administrator, roles,
+        and users to get a working installation started. The initial
+        tenant, username, and password is openstackdemo, admin, and
+        secretword.</para>
+<para>First, add two tenants, one named openstackdemo, one named
+        admin.</para>
+<literallayout class="monospaced">sudo keystone-manage tenant add openstackdemo
+sudo keystone-manage tenant add admin</literallayout>
+    <para>In return for these commands, you should see a SUCCESS
+        message, such as:</para>
+    <para>
+        <literallayout class="monospaced">SUCCESS: Tenant openstackdemo created.</literallayout>
+    </para>
+<para>Now, add users and assign their passwords.</para>
+<literallayout class="monospaced">sudo keystone-manage user add admin secretword
+sudo keystone-manage user add demo secretword</literallayout>
+<para>Now add an invented token (any combination of numbers and
+        letters will do) to the admin user for the openstackdemo
+        tenant and ensure there's an expiration date assigned. This
+        one expires in about four years.</para>
+<literallayout class="monospaced">sudo keystone-manage token add 11121314151617181920 admin openstackdemo 2015-02-05T00:0 </literallayout>
+<para>Create the Admin role and the Member role.</para>
+<literallayout class="monospaced">sudo keystone-manage role add Admin
+sudo keystone-manage role add Member</literallayout> 
+<para>Grant the Admin role to the admin user and then grant the Member
+        role to the demo user.</para>
+<literallayout class="monospaced">sudo keystone-manage role grant Admin admin
+sudo keystone-manage role grant Member demo</literallayout>
+<para>Grant the Admin role to the admin user for the openstackdemo
+        tenant.</para>
+<literallayout class="monospaced">sudo keystone-manage role grant Admin admin openstackdemo</literallayout> 
+
+<section xml:id="identity-define-services-endpoints">
+   <title>Define Services and Endpoints</title>
+    <para>Now that all your starter admin, users, and tenant have been
+            created, let's move on to endpoints. </para>
+    <para>First add all the services you want to have the Identity
+            service connected with. Here's an example using all the
+            available services.
+            <literallayout class="monospaced">sudo keystone-manage service add nova compute "Nova Compute Service"
+sudo keystone-manage service add glance image "Glance Image Service"
+sudo keystone-manage service add keystone identity "Keystone Identity Service"
+sudo keystone-manage service add swift object-store "Swift Object Storage Service"</literallayout></para>
+    <para>Now add endpoint templates each of these now-named services,
+            which put together the IP addresses, port values, and API
+            version number to make an entire endpoint.
+            <literallayout class="monospaced">sudo keystone-manage endpointTemplates add RegionOne nova http://192.168.206.130:8774/v1.1/%tenant_id% http://192.168.206.130:8774/v1.1/%tenant_id% http://192.168.206.130:8774/v1.1/%tenant_id% 1 1
+sudo keystone-manage endpointTemplates add RegionOne glance http://192.168.206.130:9292/v1.1/%tenant_id% http://192.168.206.130:9292/v1.1/%tenant_id% http://192.168.206.130:9292/v1.1/%tenant_id% 1 1
+sudo keystone-manage endpointTemplates add RegionOne keystone http://192.168.206.130:5000/v2.0 http://192.168.206.130:35357/v2.0 http://192.168.206.130:5000/v2.0 1 1
+sudo keystone-manage endpointTemplates add RegionOne swift http://192.168.206.130:8080/v1/AUTH_%tenant_id% http://192.168.206.130:8080/ http://192.168.206.130:8080/v1/AUTH_%tenant_id% 1 1</literallayout></para>
+
+<para>Optionally, you can add EC2 credentials to the Identity Service for any commands you may want to use euca2ools for.</para>
+    <literallayout class="monospaced">sudo keystone-manage credentials add admin EC2 'admin' 'secretword' admin
+    sudo keystone-manage credentials add demo EC2 'demo' 'secretword' demo</literallayout>
+    <para>The Identity Service, Keystone, is now configured and ready to accept requests. Next go on to the Dashboard installation process.</para>
+</section>
+    <section xml:id="verifying-identity-install"><title>Verifying the Identity Service Installation</title>
+    
+    <para>Here is a curl command you can use to ensure that the Identity service is working:</para>
+    <literallayout class="monospaced">curl -d '{"auth":{"passwordCredentials":{"username": "demo", "password": "secretword"}}}' -H "Content-type: application/json" http://localhost:35357/v2.0/tokens</literallayout>
+    <para>In return, you should receive a token for the demo user:</para>
+    <literallayout class="monospaced">{"access": {"token": {"expires": "2011-12-13T07:22:40.312721", "id": "fa185ca5-1c82-4a3b-9c5d-170f9ca53d82"}, "user": {"id": "2", "roles": [{"id": "2", "name": "Member"}, {"id": "2", "name": "Member"}], "name": "demo"}}}</literallayout>
+</section>
+</section>

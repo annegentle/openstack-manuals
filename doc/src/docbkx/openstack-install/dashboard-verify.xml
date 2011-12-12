@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section  xml:id="verify-dashboard"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+    <title>Validating the Dashboard Install</title>
+<para>To validate the Dashboard installation, make sure that your firewall isn't blocking TCP/8000 and just point your browser 
+    at the server on port 8000. If you are running the server on the same machine as your browser, this would be "http://localhost:8000". You should see a login window. 
+    Enter the credentials for users you created with the Identity Service, Keystone. For example, enter "admin" for the username and "secretword" as the password.</para>
+<mediaobject>
+    <imageobject role="fo">
+        <imagedata fileref="figures/dashboard-overview.png"
+            format="PNG" scale="60"/>
+    </imageobject>
+    <imageobject role="html">
+        <imagedata fileref="figures/dashboard-overview.png"
+            format="PNG" />
+    </imageobject>
+</mediaobject></section>
