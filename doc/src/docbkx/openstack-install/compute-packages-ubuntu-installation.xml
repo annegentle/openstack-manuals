@@ -134,8 +134,8 @@ sudo apt-get install nova-network nova-compute</literallayout>
             database.</para>
     </section>
     <xi:include href="compute-database-mysql.xml"/>
-    <xi:include href="compute-database-postgresql.xml" />
-   
+<!--    <xi:include href="compute-database-postgresql.xml" />
+-->   
     <section xml:id="minimum-configuration-settings">
         <title>Minimum Configuration Settings</title>
         <para>Many of the settings for Compute services are stored in
