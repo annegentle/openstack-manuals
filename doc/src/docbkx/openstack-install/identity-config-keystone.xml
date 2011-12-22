@@ -27,6 +27,9 @@ sudo keystone-manage user add demo secretword</literallayout>
         tenant and ensure there's an expiration date assigned. This
         one expires in about four years.</para>
 <literallayout class="monospaced">sudo keystone-manage token add 11121314151617181920 admin openstackdemo 2015-02-05T00:0 </literallayout>
+    <para>If you see an error like "Creating a token requires a token
+        id, user, tenant, and expiration" it's possible you're missing
+        the expiration date. </para>
 <para>Create the Admin role and the Member role.</para>
 <literallayout class="monospaced">sudo keystone-manage role add Admin
 sudo keystone-manage role add Member</literallayout> 
@@ -59,7 +62,7 @@ sudo keystone-manage endpointTemplates add RegionOne swift http://192.168.206.13
 
 <para>Optionally, you can add EC2 credentials to the Identity Service for any commands you may want to use euca2ools for.</para>
     <literallayout class="monospaced">sudo keystone-manage credentials add admin EC2 'admin' 'secretword' admin
-    sudo keystone-manage credentials add demo EC2 'demo' 'secretword' demo</literallayout>
+sudo keystone-manage credentials add demo EC2 'demo' 'secretword' openstackdemo</literallayout>
     <para>The Identity Service, Keystone, is now configured and ready to accept requests. Next go on to the Dashboard installation process.</para>
 </section>
     <section xml:id="verifying-identity-install"><title>Verifying the Identity Service Installation</title>

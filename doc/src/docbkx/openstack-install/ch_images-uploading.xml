@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xml:id="uploading-to-glance"
+<chapter xml:id="uploading-to-glance"
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
@@ -9,7 +9,7 @@
         with a username/password of root/password. You can get it
         from http://images.ansolabs.com/tty.tgz. This is the image
         we'll use for this walkthrough.</para>
-    <para>Create a directory to house your images.</para>
+    <para>Create a directory to house your image files.</para>
     <para>
         <literallayout class="monospaced">sudo mkdir stackimages</literallayout>
     </para>
@@ -22,10 +22,10 @@
     <literallayout class="monospaced">sudo tar -zxf stackimages/tty.tgz -C stackimages</literallayout>
     <para>Now add the kernel image to the Image Service with glance
         add commands. In this case we're hard-coding the kernel_id and
-        ramdisk_id but you need to get the return values for the first
-        two commands to enter into the third command. We're also not
-        using any authentication for these images to they are all
-        going to be public images.</para>
+        ramdisk_id values, but for additional images, you need to get
+        the return values for the first two commands to enter into the
+        third command. We're also not using any authentication for
+        these images to they are all going to be public images.</para>
     <para>
         <literallayout>glance add name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
 glance add name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
@@ -36,4 +36,4 @@ glance add name="tty" is_public=true container_format=ami disk_format=ami kernel
         http://uec-images.ubuntu.com/natty/current/natty-server-cloudimg-amd64.tar.gz
         and Ubuntu Oneiric (11.10) at
         http://uec-images.ubuntu.com/oneiric/current/oneiric-server-cloudimg-amd64.tar.gz. </para>
-</section>
+</chapter>

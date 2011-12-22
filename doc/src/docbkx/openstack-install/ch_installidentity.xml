@@ -7,5 +7,6 @@
         <para>The OpenStack Identity service manages users, tenants (accounts) and offers a common identity system for all the OpenStack components.</para>
          
     <xi:include href="identity-install-keystone.xml" />
-    
+    <xi:include href="identity-config-keystone.xml" />
+        
     </chapter>

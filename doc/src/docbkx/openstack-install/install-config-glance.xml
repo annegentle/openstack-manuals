@@ -4,15 +4,6 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
     <title>Installing and Configuring the Image Service</title>
-    <para>First, you need to add a signing key for the
-        Cloud Builders repository that contains packages
-        that are known and tested to work together, such
-        as diablo-d5 or diablo-final. Once you add the
-        signing key, you add a repository entry pointing
-        to it and update your repo pointer with an apt-get
-        command. </para>
-    <literallayout class="monospaced">sudo apt-key adv --keyserver hkp://subkeys.pgp.net --recv F87CBDE0</literallayout>
-    <literallayout class="monospaced">sudo echo "deb http://ops.rcb.me/packages maverick diablo-final" > /etc/apt/sources.list.d/rcb-sources.list</literallayout>
     
     <para>Install the Image service:</para>
     <literallayout class="monospaced">sudo apt-get install glance</literallayout>
@@ -32,18 +23,28 @@
     <para>Enter quit at the mysql> prompt to exit MySQL.</para>
     <para><literallayout class="monospaced">mysql> quit</literallayout></para>
     <para>Edit /etc/glance/glance-registry.conf to include the
-        sql_connection to use the backend data store you just created,
+        sql_connection to use the backend data store in mysql,
         such as mysql://glance:yourpassword@192.168.206.130/glance.
         Here is the relevant section:</para>
     <para>
-        <literallayout># SQLAlchemy connection string for the reference implementation 
+        <literallayout class="monospaced"># SQLAlchemy connection string for the reference implementation 
 # registry server. Any valid SQLAlchemy connection string is fine. 
 # See: http://www.sqlalchemy.org/docs/05/reference/sqlalchemy/connections.html#sqlalchemy.create_engine 
 sql_connection = mysql://glance:yourpassword@192.168.206.130/glance</literallayout>
     </para>
-    <para>Create the tables in your backend data
+        <para>Edit /etc/glance/glance-scrubber.conf to include the
+            sql_connection information also, in the same format as the
+            example above.</para>
+        <para>Edit /etc/glance/glance-api.conf to update the
+            admin_token (at the very bottom of the file).</para>
+        <para>Restart the glance service after changing the database
+            connection in the glance-registry.conf and
+            glance-scrubber.conf. </para>
+      <literallayout class="monospaced">sudo restart glance-registry
+sudo restart glance-api</literallayout>
+    <!--<para>Create the tables in your backend data
         store:</para>
-    <literallayout class="monospaced">sudo glance-manage db_sync</literallayout>
+    <literallayout class="monospaced">sudo glance-manage db_sync</literallayout>-->
     <para>Now you can load your initial image and spin up your first
         VM if you want to use the EC2 API and euca- or nova-client
         commands. For Dashboard integration, you need to install the

@@ -39,13 +39,19 @@
         'default-character-set': 'utf8'
     },
 }</literallayout></listitem>
-       <listitem><para>SWIFT_ENABLED: If a Swift endpoint is available and configured in
-             the Identity service catalog, set SWIFT_ENABLED = True. </para></listitem>
+       <listitem>
+            <para>SWIFT_ENABLED: If an Object Storage (Swift) endpoint
+                is available and configured in the Identity service
+                catalog, set SWIFT_ENABLED = True. </para>
+        </listitem>
+        <listitem>
+            <para>QUANTUM_ENABLED: For now, the Network Connection
+                (Quantum) service is enabled in local_settings.py, but
+                the project is still in incubation for Diablo and
+                should be available in the Essex release. You can
+                leave the settings as-is for now.</para>
+        </listitem>
         </itemizedlist>
-    <para>For now, the Network Connection (Quantum) service is enabled
-        in local_settings.py, but the project is still in incubation
-        for Diablo and should be available in the Essex
-        release. You can leave the settings as-is for now.</para>
         <para>Now that the local_settings.py file is ready, run the
         syncdb command to initialize the database. </para>
     <literallayout class="monospaced">cd /var/lib/dash

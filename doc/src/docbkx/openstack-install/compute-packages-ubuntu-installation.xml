@@ -15,6 +15,7 @@
         installation, use the following assumptions:</para>
     <para>
         <itemizedlist>
+            <listitem><para>Installing with a user with sudo access named "nova" (though you can use any username).</para></listitem>
             <listitem>
                 <para>Ensure that the server can resolve its
                     own hostname, otherwise RabbitMQ cannot
@@ -29,7 +30,7 @@
                     nova services.</para>
             </listitem>
             <listitem>
-                <para>10.0.2.15 is the primary IP for our host
+                <para>192.168.206.130 is the primary IP for our host
                     on eth0.</para>
             </listitem>
             <listitem>
@@ -70,8 +71,7 @@
             <listitem><para>br100: no ports, stp off, fd 0, first address from --fixed_range
             set in nova.conf files.</para></listitem></itemizedlist> 
         <para>Here's an example:</para>
-                <para><literallayout class="monospaced">
-# The loopback network interface
+                <para><literallayout class="monospaced"># The loopback network interface
 auto lo
 iface lo inet loopback
 
@@ -85,8 +85,7 @@ iface br100 inet static
 address 192.168.100.1 
 netmask 255.255.255.0 
 bridge_stp off
-bridge_fd 0
-                </literallayout></para>
+bridge_fd 0</literallayout></para>
             <para>Also install bridge-utils:</para>
         <literallayout class="monospaced">sudo apt-get install bridge-utils</literallayout>
         <para>Ensure that you set up the bridge. </para>
@@ -95,15 +94,13 @@ bridge_fd 0
             effect. (This method is deprecated but "<code>restart
                 networking</code>" doesn't always work.)</para>
         <literallayout class="monospaced">sudo /etc/init.d/networking restart</literallayout></section>
-    <section xml:id="installing-the-cloud-controller">
-        <title>Installing the Cloud Controller</title>
-        <para>First, you need to add a signing key for the
-            Cloud Builders repository that contains packages
-            that are known and tested to work together, such
-            as diablo-d5 or diablo-final. Once you add the
-            signing key, you add a repository entry pointing
-            to it and update your repo pointer with an apt-get
-            command. </para>
+    <section xml:id="preconfiguring-for-packages"><title>Preconfiguring for Cloud Builders Packages</title>
+        <para>First, you need to add a signing key for the Cloud
+            Builders repository that contains packages that are known
+            and tested to work together, such as diablo-d5 or
+            diablo-final. Once you add the signing key, you add a
+            repository entry pointing to it and update your repo
+            pointer with an apt-get command. </para>
         <literallayout class="monospaced">sudo apt-key adv --keyserver hkp://subkeys.pgp.net --recv F87CBDE0</literallayout>
         <para>Now, create a new sources.list and add a pointer to the
             Rackspace Cloud Builders packages for a finalized Diablo
@@ -117,6 +114,9 @@ bridge_fd 0
         <literallayout class="monospaced">deb http://ops.rcb.me/packages natty diablo-final</literallayout>
         <para>Now update to pick up this repository.</para>
         <literallayout class="monospaced">sudo apt-get update</literallayout>
+    </section>
+    <section xml:id="installing-the-cloud-controller">
+        <title>Installing the Cloud Controller</title>
         <para>Install
             the messaging queue server, RabbitMQ.</para>
         <literallayout class="monospaced">sudo apt-get install rabbitmq-server</literallayout>
@@ -124,14 +124,14 @@ bridge_fd 0
         <literallayout class="monospaced">sudo apt-get install python-greenlet  </literallayout>
         <para>Install the required nova- packages, and dependencies are automatically
             installed.</para>
-        <literallayout class="monospaced">sudo apt-get install nova-volume nova-vncproxy nova-api nova-ajax-console-proxy nova-doc nova-scheduler 
-sudo apt-get install nova-network nova-compute</literallayout>
-        <para>Install the supplemental tool unzip.</para>
-        <literallayout class="monospaced">sudo apt-get install unzip</literallayout>
+        <literallayout class="monospaced">sudo apt-get install nova-compute nova-volume nova-vncproxy nova-api nova-ajax-console-proxy nova-doc nova-scheduler nova-network</literallayout>
+        <!--<para>Install the supplemental tool unzip.</para>
+        <literallayout class="monospaced">sudo apt-get install unzip</literallayout>-->
         <para>Next set up the database, either MySQL or PostgreSQL,
             with a database named "nova" and a user named "nova"
-            granting the "nova" user full access to the
-            database.</para>
+            granting the "nova" user full access to the database. This
+            example goes through MySQL but you can refer to the
+            Compute Admin Manual for PostgreSQL instructions.</para>
     </section>
     <xi:include href="compute-database-mysql.xml"/>
 <!--    <xi:include href="compute-database-postgresql.xml" />
@@ -143,14 +143,15 @@ sudo apt-get install nova-network nova-compute</literallayout>
             relevant settings for getting a minimal install running.
             Refer to the OpenStack Compute Admin Manual for guidance
             on more configuration options.</para>
-        <para>Create a “nova” group, so you can set permissions on the configuration file: </para>
-        <literallayout class="monospaced">sudo addgroup nova</literallayout>
-        <para>The nova.config file should have its owner set to
-            root:nova (or the username you're using to install
-            Compute), and mode set to 0640, since the file contains
-            your MySQL server’s username and password. You also want
-            to ensure that the nova user belongs to the nova
-            group.</para>
+        
+        <para>The packages automatically do these steps for a user
+            named nova, but if you are installing as another user you
+            should ensure that the nova.conf file should have its
+            owner set to root:nova, and mode set to 0640, since the
+            file contains your MySQL server’s username and password.
+            This packaged install ensures that the nova user belongs
+            to the nova group and that the .conf file permissions are
+            set.</para>
         <literallayout class="monospaced">sudo usermod -g nova nova
 sudo chown -R root:nova /etc/nova
 sudo chmod 640 /etc/nova/nova.conf</literallayout>
@@ -159,7 +160,11 @@ sudo chmod 640 /etc/nova/nova.conf</literallayout>
             the nova.conf file. The hypervisor defaults to "kvm", but
             if you are working within a VM already, switch to "qemu"
             on the --libvirt_type= line. </para>
-        <para>Ensure the database connection defines your backend data store, for example, add "--sql_connection=mysql://[ user ]:[ pass ]@[ primary IP ]/[ db name ]".</para>
+        <para>Ensure the database connection defines your backend data
+            store by adding a --sql_connection line to nova.conf:
+            "--sql_connection=mysql://[ user ]:[ pass ]@[ primary IP
+            ]/[ db name ]", such as
+            --sql_connection=mysql://nova:yourpassword@192.168.206.130/nova.</para>
         <para>Add these settings to /etc/nova/nova.conf for the
             network configuration assumptions made for this
             installation scenario. You can place comments in the
@@ -180,7 +185,6 @@ sudo chmod 640 /etc/nova/nova.conf</literallayout>
 --state_path=/var/lib/nova
 --lock_path=/var/lock/nova
 --flagfile=/etc/nova/nova-compute.conf
-# Leave the use_deprecated_auth when using EC2 credentials only, otherwise set to false to use the OpenStack Identity Service Keystone
 --use_deprecated_auth 
 --verbose
 # Settings added for networking with DHCP
@@ -188,14 +192,22 @@ sudo chmod 640 /etc/nova/nova.conf</literallayout>
 --fixed_range=192.168.100.0/24
 --flat_network_dhcp_start=192.168.100.2
 --public_interface=eth0 --flat_interface=br100
---sql_connection=mysql://nova:notnova@192.168.206.129/nova</literallayout></para>
+--sql_connection=mysql://nova:yourpassword@192.168.206.130/nova</literallayout></para>
         
         <para>This example nova.conf file points to a
             nova-compute.conf file which contains the hypervisor
-            configuration information, in this case it is just
-            --libvirt_type=kvm. You can remove the referral to a
-            separate nova-compute.conf file and insert
+            configuration information in
+            --flagfile=/etc/nova/nova-compute.conf. You can remove the
+            referral to a separate nova-compute.conf file and insert
             --libvirt_type=kvm into the nova.conf if you want. </para>
+        <para>Restart the nova- services prior to running db
+            sync.</para>
+        <para>
+            <literallayout class="monospaced">sudo restart nova-api
+sudo restart nova-compute
+sudo restart nova-network
+sudo restart nova-scheduler</literallayout>
+        </para>
         <para>Create the tables in your backend data store by running
             the following command:</para>
         <literallayout class="monospaced">sudo nova-manage db sync</literallayout>
@@ -212,11 +224,12 @@ sudo restart nova-compute
 sudo restart nova-network
 sudo restart nova-scheduler
 sudo restart libvirt-bin
-sudo /etc/init.d/rabbitmq-server restart      </literallayout>
+sudo /etc/init.d/rabbitmq-server restart </literallayout>
         </para>
-        <para>All nova services are now installed. Next you
-            can install and configure the Image Service,
-            Glance.</para>
+        <para>All nova services are now installed and started. If the
+            "restart" command doesn't work, you may need to use
+            "start" instead. Next you can install and configure the
+            Image Service, Glance.</para>
     </section>
     
 </section>
