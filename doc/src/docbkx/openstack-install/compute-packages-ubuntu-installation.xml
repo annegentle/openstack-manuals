@@ -7,9 +7,8 @@
         Services</title>
     <para>The manual installation involves installing
         OpenStack Compute from packages on Ubuntu 11.04 as a
-        user with root permission. Depending on your
-        environment, you may need to prefix these commands
-        with sudo.</para>
+        user named nova with root permission. This guid is written with all commands
+        prefixed with sudo.</para>
     <para>Our assumptions for this installation are that you
         have a base Ubuntu Server 11.04 ready. For this
         installation, use the following assumptions:</para>
@@ -94,27 +93,6 @@ bridge_fd 0</literallayout></para>
             effect. (This method is deprecated but "<code>restart
                 networking</code>" doesn't always work.)</para>
         <literallayout class="monospaced">sudo /etc/init.d/networking restart</literallayout></section>
-    <section xml:id="preconfiguring-for-packages"><title>Preconfiguring for Cloud Builders Packages</title>
-        <para>First, you need to add a signing key for the Cloud
-            Builders repository that contains packages that are known
-            and tested to work together, such as diablo-d5 or
-            diablo-final. Once you add the signing key, you add a
-            repository entry pointing to it and update your repo
-            pointer with an apt-get command. </para>
-        <literallayout class="monospaced">sudo apt-key adv --keyserver hkp://subkeys.pgp.net --recv F87CBDE0</literallayout>
-        <para>Now, create a new sources.list and add a pointer to the
-            Rackspace Cloud Builders packages for a finalized Diablo
-            release containing Compute, Object Storage, Image Service,
-            the Dashboard, and Identity Service.</para>
-        <literallayout class="monospaced">sudo nano /etc/apt/sources.list.d/rcb-sources.list           </literallayout>
-        <para>Paste the following line into the newly created
-            rcb-sources.list file. The options are maverick, natty, or
-            oneiric for the operating system and diablo-d5 or
-            diablo-final:</para>
-        <literallayout class="monospaced">deb http://ops.rcb.me/packages natty diablo-final</literallayout>
-        <para>Now update to pick up this repository.</para>
-        <literallayout class="monospaced">sudo apt-get update</literallayout>
-    </section>
     <section xml:id="installing-the-cloud-controller">
         <title>Installing the Cloud Controller</title>
         <para>Install
@@ -137,7 +115,7 @@ bridge_fd 0</literallayout></para>
 <!--    <xi:include href="compute-database-postgresql.xml" />
 -->   
     <section xml:id="minimum-configuration-settings">
-        <title>Minimum Configuration Settings</title>
+        <title>Configuring OpenStack Compute</title>
         <para>Many of the settings for Compute services are stored in
             the /etc/nova/nova.conf file by default. Here are the
             relevant settings for getting a minimal install running.
@@ -177,36 +155,59 @@ sudo chmod 640 /etc/nova/nova.conf</literallayout>
 --flat_network_dhcp_start=192.168.100.2
 --public_interface=eth0
 --flat_interface=br100</literallayout>
-        <para>Your nova.conf should look like the following example
-            file at this point:</para>
-        <para><literallayout class="monospaced">--dhcpbridge_flagfile=/etc/nova/nova.conf  
+        <para>Here is an example nova.conf with commented
+            sections:</para>
+        <para><literallayout class="monospaced"># LOGS/STATE
+--verbose
+--dhcpbridge_flagfile=/etc/nova/nova.conf
 --dhcpbridge=/usr/bin/nova-dhcpbridge
---logdir=/var/log/nova 
+--logdir=/var/log/nova
 --state_path=/var/lib/nova
 --lock_path=/var/lock/nova
---flagfile=/etc/nova/nova-compute.conf
---use_deprecated_auth 
---verbose
-# Settings added for networking with DHCP
+
+# RABBITMQ
+--rabbit_password=guest
+--rabbit_port=5672
+--rabbit_host=192.168.206.130
+
+# SCHEDULER
+--scheduler_driver=nova.scheduler.simple.SimpleScheduler
+
+# NETWORK
 --network_manager=nova.network.manager.FlatDHCPManager
 --fixed_range=192.168.100.0/24
 --flat_network_dhcp_start=192.168.100.2
---public_interface=eth0 --flat_interface=br100
---sql_connection=mysql://nova:yourpassword@192.168.206.130/nova</literallayout></para>
-        
-        <para>This example nova.conf file points to a
-            nova-compute.conf file which contains the hypervisor
-            configuration information in
-            --flagfile=/etc/nova/nova-compute.conf. You can remove the
-            referral to a separate nova-compute.conf file and insert
-            --libvirt_type=kvm into the nova.conf if you want. </para>
+--public_interface=eth0
+--flat_interface=br100
+
+# GLANCE
+--image_service=nova.image.glance.GlanceImageService
+--glance_api_servers=192.168.206.130:9292
+
+# COMPUTE
+--compute_manager=nova.compute.manager.ComputeManager
+--libvirt_type=qemu
+
+# VNCPROXY
+--vncproxy_url=http://192.168.206.130:6080
+--vncproxy_wwwroot=/var/lib/nova/noVNC
+
+# MISC
+--use_deprecated_auth=false
+--allow_admin_api=true
+--enable_zone_routing=true
+
+# KEYSTONE
+--keystone_ec2_url=http://192.168.206.130:5000/v2.0/ec2tokens
+</literallayout></para>
         <para>Restart the nova- services prior to running db
             sync.</para>
         <para>
             <literallayout class="monospaced">sudo restart nova-api
 sudo restart nova-compute
 sudo restart nova-network
-sudo restart nova-scheduler</literallayout>
+sudo restart nova-scheduler
+sudo restart nova-vncproxy</literallayout>
         </para>
         <para>Create the tables in your backend data store by running
             the following command:</para>
@@ -223,6 +224,7 @@ sudo restart nova-scheduler</literallayout>
 sudo restart nova-compute
 sudo restart nova-network
 sudo restart nova-scheduler
+sudo restart nova-vncproxy
 sudo restart libvirt-bin
 sudo /etc/init.d/rabbitmq-server restart </literallayout>
         </para>

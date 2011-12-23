@@ -3,13 +3,8 @@
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
-    <title>Setting up the SQL Database (MySQL) on the Cloud Controller</title>
-    <para>You must use a SQLAlchemy-compatible database with OpenStack Compute, such as MySQL or
-        PostgreSQL. This example shows MySQL. </para>
-    <para>First, install MySQL with:
-        <literallayout class="monospaced">sudo apt-get install python-mysqldb mysql-server</literallayout></para>
-    <para>During the install, you'll be prompted for the mysql root
-        password. Enter a password of your choice and verify it.</para>
+    <title>Configuring the SQL Database (MySQL) on the Cloud Controller</title>
+    
     <para>Start the mysql command line client by running:</para>
     <para><literallayout class="monospaced">mysql -u root -p</literallayout></para>
     <para>Enter the mysql root user's password when prompted.</para>
@@ -21,11 +16,6 @@
         'yourpassword';</literallayout></para>
     <para>Enter quit at the mysql> prompt to exit MySQL.</para>
     <para><literallayout class="monospaced">mysql> quit</literallayout></para>
-    <para>Edit /etc/mysql/my.cnf to change "bind-address" from
-        localhost (127.0.0.1) to any (0.0.0.0) and restart the mysql
-        service: </para>
-    <para>
-        <literallayout class="monospaced">sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
-sudo service mysql restart</literallayout></para>
+    
     <para>The database will be populated after running the nova-manage db sync command.</para>
 </section>

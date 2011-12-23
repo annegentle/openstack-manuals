@@ -50,15 +50,13 @@ sudo keystone-manage role grant Member demo</literallayout>
             available services.
             <literallayout class="monospaced">sudo keystone-manage service add nova compute "Nova Compute Service"
 sudo keystone-manage service add glance image "Glance Image Service"
-sudo keystone-manage service add keystone identity "Keystone Identity Service"
-sudo keystone-manage service add swift object-store "Swift Object Storage Service"</literallayout></para>
+sudo keystone-manage service add keystone identity "Keystone Identity Service"<!--sudo keystone-manage service add swift object-store "Swift Object Storage Service"--></literallayout></para>
     <para>Now add endpoint templates each of these now-named services,
             which put together the IP addresses, port values, and API
             version number to make an entire endpoint.
             <literallayout class="monospaced">sudo keystone-manage endpointTemplates add RegionOne nova http://192.168.206.130:8774/v1.1/%tenant_id% http://192.168.206.130:8774/v1.1/%tenant_id% http://192.168.206.130:8774/v1.1/%tenant_id% 1 1
-sudo keystone-manage endpointTemplates add RegionOne glance http://192.168.206.130:9292/v1.1/%tenant_id% http://192.168.206.130:9292/v1.1/%tenant_id% http://192.168.206.130:9292/v1.1/%tenant_id% 1 1
-sudo keystone-manage endpointTemplates add RegionOne keystone http://192.168.206.130:5000/v2.0 http://192.168.206.130:35357/v2.0 http://192.168.206.130:5000/v2.0 1 1
-sudo keystone-manage endpointTemplates add RegionOne swift http://192.168.206.130:8080/v1/AUTH_%tenant_id% http://192.168.206.130:8080/ http://192.168.206.130:8080/v1/AUTH_%tenant_id% 1 1</literallayout></para>
+sudo keystone-manage endpointTemplates add RegionOne glance http://192.168.206.130:9292/v1 http://192.168.206.130:9292/v1 http://192.168.206.130:9292/v1 1 1
+sudo keystone-manage endpointTemplates add RegionOne keystone http://192.168.206.130:5000/v2.0 http://192.168.206.130:35357/v2.0 http://192.168.206.130:5000/v2.0 1 1<!--sudo keystone-manage endpointTemplates add RegionOne glance http://192.168.206.130:9292/v1.1/%tenant_id% http://192.168.206.130:9292/v1.1/%tenant_id% http://192.168.206.130:9292/v1.1/%tenant_id% 1 1               --><!--sudo keystone-manage endpointTemplates add RegionOne swift http://192.168.206.130:8080/v1/AUTH_%tenant_id% http://192.168.206.130:8080/ http://192.168.206.130:8080/v1/AUTH_%tenant_id% 1 1--></literallayout></para>
 
 <para>Optionally, you can add EC2 credentials to the Identity Service for any commands you may want to use euca2ools for.</para>
     <literallayout class="monospaced">sudo keystone-manage credentials add admin EC2 'admin' 'secretword' admin

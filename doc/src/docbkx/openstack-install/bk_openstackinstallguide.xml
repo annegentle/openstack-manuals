@@ -22,9 +22,9 @@
             <year>2011</year>
             <holder>OpenStack LLC</holder>
         </copyright>
-        <releaseinfo>trunk</releaseinfo>
+        <releaseinfo>diablo-final</releaseinfo>
         <productname>OpenStack</productname>
-        <pubdate>2011-12-07</pubdate>
+        <pubdate>2011-12-23</pubdate>
         <legalnotice role="apache2">
             <annotation>
                 <remark>Copyright details are filled in by the template.</remark>
@@ -42,11 +42,11 @@
         </abstract>
         <revhistory>
             <revision>
-                <date>2011-12-22</date>
+                <date>2011-12-23</date>
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para>Initial draft.</para>
+                            <para>Initial release.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>
@@ -55,10 +55,10 @@
         </revhistory>
     </info>
     <!-- Chapters are referred from the book file through these include statements. You can add additional chapters using these types of statements. -->
-    <xi:include href="ch_installing-openstack-overview.xml" />
+    <xi:include href="ch_installing-openstack-overview.xml"/>
+    <xi:include href="ch_installidentity.xml"/>
     <xi:include href="ch_installcomputeimage.xml"/>
     <!--<xi:include href="ch_installobjectstorage.xml"/>-->
-    <xi:include href="ch_installidentity.xml"/>
     <xi:include href="ch_images-uploading.xml"/>
     <xi:include href="ch_installdashboard.xml"/>
     

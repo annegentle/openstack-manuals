@@ -4,10 +4,6 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
     <title>Configuring the Dashboard</title>
-    <para>If it's not already installed on the Dashboard server, install MySQL with:
-        <literallayout class="monospaced">sudo apt-get install python-mysqldb mysql-server</literallayout></para>
-    <para>During the install, you'll be prompted for the mysql root
-        password. Enter a password of your choice and verify it.</para>
     <para>Start the mysql command line client by running:</para>
     <para><literallayout class="monospaced">mysql -u root -p</literallayout></para>
     <para>Enter the mysql root user's password when prompted.</para>
@@ -56,6 +52,12 @@
         syncdb command to initialize the database. </para>
     <literallayout class="monospaced">cd /var/lib/dash
 PYTHONPATH=/var/lib/dash/ python dashboard/manage.py syncdb</literallayout>
+    <para>As a result, you should see the following at the end of what returns:</para>
+    <literallayout class="monospaced">Installing custom SQL ...
+Installing indexes ...
+DEBUG:django.db.backends:(0.008) CREATE INDEX `django_session_c25c2c28` ON `django_session` (`expire_date`);; args=()
+No fixtures found.
+    </literallayout>
     <para>If you want to avoid a warning when restarting apache2, create a blackhole directory in the dashboard directory like so:</para>
     <literallayout class="monospaced">sudo mkdir -p /var/lib/dash/.blackhole</literallayout>
    <para>Restart Apache to pick up the default site and symbolic link settings.</para>

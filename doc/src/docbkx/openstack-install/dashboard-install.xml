@@ -17,18 +17,8 @@
             <para>Restart and run the Apache server.</para>
         </listitem>
     </orderedlist>
-    <para>First, you need to add a signing key for the
-        Cloud Builders repository that contains packages
-        that are known and tested to work together, such
-        as diablo-d5 or diablo-final. Once you add the
-        signing key, you add a repository entry pointing
-        to it and update your repo pointer with an apt-get
-        command. </para>
-    <literallayout class="monospaced">sudo apt-key adv --keyserver hkp://subkeys.pgp.net --recv F87CBDE0</literallayout>
-    <literallayout class="monospaced">sudo echo "deb http://ops.rcb.me/packages maverick diablo-final" > /etc/apt/sources.list.d/rcb-sources.list</literallayout>
-    
-        <para>Now you can install the OpenStack Dashboard. </para>
-        <literallayout class="monospaced">sudo apt-get install openstack-dashboard</literallayout>  
+    <para>Install the OpenStack Dashboard. </para>
+        <literallayout class="monospaced">sudo apt-get install openstack-dashboard openstackx python-sqlite</literallayout>  
         <para>Enable the rewrite module for apache: sudo a2enmod rewrite</para>
         <literallayout class="monospaced">sudo a2enmod rewrite</literallayout>
         <para>Next, create a symbolic link to "dash" with the Apache2

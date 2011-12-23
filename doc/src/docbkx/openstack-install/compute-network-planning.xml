@@ -17,18 +17,16 @@
         recommended on the server running nova-network.</para>
     <para>Management Network (RFC1918 IP Range, not publicly
         routable): This network is utilized for all inter-server
-        communications within the cloud infrastructure.</para>
-    <para>Recommended size: 255 IPs (CIDR /24)</para>
-    <para>Public Network (Publicly routable IP range): This
-        network is utilized for providing Public IP accessibility
-        to the API endpoints within the cloud
-        infrastructure.</para>
-    <para>Minimum size: 8 IPs (CIDR /29)</para>
-    <para>VM Network (RFC1918 IP Range, not publicly routable):
-        This network is utilized for providing primary IP
-        addresses to the cloud instances.</para>
-    <para>Recommended size: 1024 IPs (CIDR /22)</para>
+        communications within the cloud infrastructure. Recommended
+        size: 255 IPs (CIDR /24)</para>
+    <para>Public Network (Publicly routable IP range): This network is
+        utilized for providing Public IP accessibility to the API
+        endpoints within the cloud infrastructure. Minimum size: 8 IPs
+        (CIDR /29)</para>
+    <para>VM Network (RFC1918 IP Range, not publicly routable): This
+        network is utilized for providing primary IP addresses to the
+        cloud instances. Recommended size: 1024 IPs (CIDR /22)</para>
     <para>Floating IP network (Publicly routable IP Range): This
-        network is utilized for providing Public IP accessibility
-        to selected cloud instances.</para>
-    <para>Minimum size: 16 IPs (CIDR /28)</para></section>
+        network is utilized for providing Public IP accessibility to
+        selected cloud instances. Minimum size: 16 IPs (CIDR
+        /28)</para></section>
