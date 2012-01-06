@@ -23,7 +23,7 @@
     <para>You can get a token in order to upload images using this
         curl command.</para>
     <para>
-        <literallayout class="monospaced">curl -d '{"auth":{"passwordCredentials":{"username": "demo", "password": "secretword"}}}' -H "Content-type: application/json" http://localhost:35357/v2.0/tokens</literallayout>
+        <literallayout class="monospaced">curl -d '{"auth":{"passwordCredentials":{"username": "admin", "password": "secretword"}}}' -H "Content-type: application/json" http://192.168.206.130:35357/v2.0/tokens | python -mjson.tool</literallayout>
     </para>
     <para>Now add the kernel image to the Image Service with glance
         add commands. In this case we're hard-coding the kernel_id and
@@ -31,9 +31,9 @@
         images, you need to get the return values for the first two
         commands to enter into the third command.  </para>
     <para>
-        <literallayout class="monospaced">glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
-glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
-glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty" is_public=true container_format=ami disk_format=ami kernel_id=1 ramdisk_id=2 &lt; stackimages/ami-tty/image </literallayout>
+        <literallayout class="monospaced">glance add -A 6502caeb-6c8f-438c-b27e-dd049cc726e9 name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
+glance add -A 6502caeb-6c8f-438c-b27e-dd049cc726e9 name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
+glance add -A 6502caeb-6c8f-438c-b27e-dd049cc726e9 name="tty" is_public=true container_format=ami disk_format=ami kernel_id=1 ramdisk_id=2 &lt; stackimages/ami-tty/image </literallayout>
     </para>
     
     <para>For other images, you can get Ubuntu Natty (11.04) from
@@ -49,8 +49,10 @@ glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty" is_public=true con
     <literallayout class="monospaced">
 ID               Name                           Disk Format          Container Format     Size          
 ---------------- ------------------------------ -------------------- -------------------- --------------
-6                tty-kernel                     aki                  aki                         4404752
+3                tty                            ami                  ami                        25165824
+2                tty-ramdisk                    ari                  ari                         5882349
+1                tty-kernel                     aki                  aki                         4404752
     </literallayout>
     <para>If you see an ECONNREFUSED error in return, it means your
-        glance-registry.conf file is incorrectly configured.</para>
+        glance-registry.conf file is incorrectly configured. Double-check and compare to the file in the appendix.</para>
 </chapter>

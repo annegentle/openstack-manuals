@@ -18,8 +18,8 @@
     <para>Now you can configure the dashboard application by modifying the local_settings.py file. An example is provided that you can copy
             to local_settings.py and then modify for your environment.
         </para>
-    <para>Rename the /var/lib/dash/local/local_settings.py.example
-        file to local_settings.py.</para>
+    <para>Copy the /var/lib/dash/local/local_settings.py.example file
+        to local_settings.py.</para>
     <literallayout class="monospaced">sudo cp /var/lib/dash/local/local_settings.py.example /var/lib/dash/local/local_settings.py</literallayout>
     <para>In the /var/lib/dash/local/local_settings.py file, change
         these options:</para>
@@ -44,8 +44,8 @@
             <para>QUANTUM_ENABLED: For now, the Network Connection
                 (Quantum) service is enabled in local_settings.py, but
                 the project is still in incubation for Diablo and
-                should be available in the Essex release. You can
-                leave the settings as-is for now.</para>
+                should be available in the Essex release. You can set
+                QUANTUM_ENABLED = False.</para>
         </listitem>
         </itemizedlist>
         <para>Now that the local_settings.py file is ready, run the

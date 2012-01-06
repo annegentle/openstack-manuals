@@ -24,7 +24,7 @@
         </copyright>
         <releaseinfo>diablo-final</releaseinfo>
         <productname>OpenStack</productname>
-        <pubdate>2011-12-23</pubdate>
+        <pubdate>2012-01-06</pubdate>
         <legalnotice role="apache2">
             <annotation>
                 <remark>Copyright details are filled in by the template.</remark>
@@ -46,7 +46,7 @@
                 <revdescription>
                     <itemizedlist spacing="compact">
                         <listitem>
-                            <para>Initial release.</para>
+                            <para>Initial draft.</para>
                         </listitem>
                     </itemizedlist>
                 </revdescription>

@@ -5,11 +5,10 @@
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
     <title>Validating the Dashboard Install</title>
 <para>To validate the Dashboard installation, point your browser at
-        http://192.168.206.130 and make sure that your firewall isn't
-        blocking TCP/8000. You should see a login window. Enter the
-        credentials for users you created with the Identity Service,
-        Keystone. For example, enter "admin" for the username and
-        "secretword" as the password.</para>
+        http://192.168.206.130. You should see a login window. Enter
+        the credentials for users you created with the Identity
+        Service, Keystone. For example, enter "admin" for the username
+        and "secretword" as the password.</para>
 <mediaobject>
     <imageobject role="fo">
         <imagedata fileref="figures/dashboard-overview.png"
