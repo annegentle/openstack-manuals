@@ -6,13 +6,16 @@
     <title>Defining Compute and Image Service Credentials</title>
     <para>Create a novarc file that can contain these variables that are used by the nova and glance clients. Make a directory to house these.</para>
 
-<literallayout class="monospaced">sudo nano ~/creds/novarc
-
+<literallayout class="monospaced">mkdir ~/creds
+sudo nano ~/creds/novarc</literallayout>
+    
+    <para>In the novarc file you create, paste these values:</para>
+<literallayout class="monospaced">
 export NOVA_USERNAME=admin
 export NOVA_PROJECT_ID=openstackdemo
 export NOVA_PASSWORD=secretword
 export NOVA_API_KEY=secretword
-export NOVA_URL=http://127.0.0.1:5000/v2.0/
+export NOVA_URL=http://192.168.206.130:5000/v2.0/
 export NOVA_VERSION=1.1
 export NOVA_REGION_NAME=RegionOne
 

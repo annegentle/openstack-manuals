@@ -40,8 +40,8 @@
                     <para>Two NICS are recommended but not required. A quad core server with 12
                         GB RAM would be more than sufficient for a cloud controller node.</para>
                     <para>32-bit processors will work for the cloud controller node. </para>
-                    <para>The packages referred to in this guide do
-                        not contain i386 packages.</para>
+                    <para>The package repositories referred to in this
+                        guide do not contain i386 packages.</para>
                 </td>
             </tr>
             <tr>

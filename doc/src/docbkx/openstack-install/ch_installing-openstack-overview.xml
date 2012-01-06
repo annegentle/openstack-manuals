@@ -25,11 +25,13 @@
             <para>Install the Identity Service (Keystone).</para>
         </listitem>
         <listitem>
-            <para>Delete the SQLLite Keystone database.</para>
+            <para>Configure the Identity Service.</para>
         </listitem>
         <listitem>
-            <para>Configure the Identity Service with a mySQL Keystone
-                database.</para>
+            <para>Install the Image Service (Glance).</para>
+        </listitem>
+        <listitem>
+            <para>Configure the Image Service.</para>
         </listitem>
             <listitem>
             <para>Install Compute (Nova).</para>
@@ -40,14 +42,8 @@
                 VMs on a bridge named br100. </para>
         </listitem>
         <listitem>
-            <para>Create and initialize the Nova database with
+            <para>Create and initialize the Compute database with
                 MySQL.</para>
-        </listitem>
-        <listitem>
-            <para>Install the Image Service (Glance).</para>
-        </listitem>
-        <listitem>
-            <para>Configure the Image Service.</para>
         </listitem>
         <listitem>
             <para>Add images.</para>

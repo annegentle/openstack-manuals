@@ -4,16 +4,6 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">            
             <title>Verifying the Image Service Installation</title>
-    <para>You can ensure that your Image service is running by using
-        the glance CLI with an authorization token:</para>        
-    <literallayout class="monospaced">glance -A e660589d-76a7-42ee-bd52-dbd456af0745 index</literallayout>
-    <para>In return you should see a listing of images (if you have
-        uploaded any). Here's an example.</para>
-    <literallayout class="monospaced">
-ID               Name                           Disk Format          Container Format     Size          
----------------- ------------------------------ -------------------- -------------------- --------------
-6                tty-kernel                     aki                  aki                         4404752
-    </literallayout>
     <para>You can find the version of the installation by using the
         glance --version command:</para>
             <literallayout class="monospaced">glance --version</literallayout>

@@ -29,16 +29,28 @@
         add commands. In this case we're hard-coding the kernel_id and
         ramdisk_id values in the third command, but for additional
         images, you need to get the return values for the first two
-        commands to enter into the third command. If you remove the -A
-        $token portion, all your images will be publicly available. </para>
+        commands to enter into the third command.  </para>
     <para>
-        <literallayout>glance add -A e660589d-76a7-42ee-bd52-dbd456af0745 name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
-glance add -A e660589d-76a7-42ee-bd52-dbd456af0745 name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
-glance add -A e660589d-76a7-42ee-bd52-dbd456af0745 name="tty" is_public=true container_format=ami disk_format=ami kernel_id=1 ramdisk_id=2 &lt; stackimages/ami-tty/image </literallayout>
+        <literallayout class="monospaced">glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
+glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
+glance add -A 108f04e5-6fbb-4e05-807b-e997273a2313 name="tty" is_public=true container_format=ami disk_format=ami kernel_id=1 ramdisk_id=2 &lt; stackimages/ami-tty/image </literallayout>
     </para>
     
     <para>For other images, you can get Ubuntu Natty (11.04) from
         http://uec-images.ubuntu.com/natty/current/natty-server-cloudimg-amd64.tar.gz
         and Ubuntu Oneiric (11.10) at
         http://uec-images.ubuntu.com/oneiric/current/oneiric-server-cloudimg-amd64.tar.gz. </para>
+    <para>You can ensure that your Image service has indexed these
+        images by using the glance CLI with an authorization
+        token:</para>
+    <literallayout class="monospaced">glance -A e660589d-76a7-42ee-bd52-dbd456af0745 index</literallayout>
+    <para>In return you should see a listing of images. Here's an
+        example.</para>
+    <literallayout class="monospaced">
+ID               Name                           Disk Format          Container Format     Size          
+---------------- ------------------------------ -------------------- -------------------- --------------
+6                tty-kernel                     aki                  aki                         4404752
+    </literallayout>
+    <para>If you see an ECONNREFUSED error in return, it means your
+        glance-registry.conf file is incorrectly configured.</para>
 </chapter>

@@ -66,8 +66,10 @@ sudo keystone-manage credentials add demo EC2 'demo' 'secretword' openstackdemo<
     <section xml:id="verifying-identity-install"><title>Verifying the Identity Service Installation</title>
     
     <para>Here is a curl command you can use to ensure that the Identity service is working:</para>
-    <literallayout class="monospaced">curl -d '{"auth":{"passwordCredentials":{"username": "demo", "password": "secretword"}}}' -H "Content-type: application/json" http://localhost:35357/v2.0/tokens</literallayout>
-    <para>In return, you should receive a token for the demo user:</para>
+    <literallayout class="monospaced">curl -d '{"auth":{"passwordCredentials":{"username": "demo", "password": "secretword"}}}' -H "Content-type: application/json" http://192.168.206.130:35357/v2.0/tokens</literallayout>
+    <para>In return, you should receive a token for the demo user.
+            Make a note of it so you can use this token when issuing
+            Glance CLI commands.</para>
     <literallayout class="monospaced">{"access": {"token": {"expires": "2011-12-13T07:22:40.312721", "id": "fa185ca5-1c82-4a3b-9c5d-170f9ca53d82"}, "user": {"id": "2", "roles": [{"id": "2", "name": "Member"}, {"id": "2", "name": "Member"}], "name": "demo"}}}</literallayout>
 </section>
 </section>
