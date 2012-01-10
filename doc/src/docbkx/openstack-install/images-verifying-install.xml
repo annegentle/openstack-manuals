@@ -12,4 +12,11 @@
         release.</para>
     
     <literallayout class="monospaced">glance 2011.3</literallayout>
+    <para>
+        Another verification at this point for the Glance installation working with Keystone is to issue a glance details command 
+        with the admin token. If you get no errors (and no response) it means that the token is accepted by Keystone and no images are yet loaded to Glance.
+    </para>
+    <literallayout class="monospaced">
+        glance details -A 112233445566778899
+    </literallayout>
     </section>

@@ -4,30 +4,17 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
     <title>Defining Compute and Image Service Credentials</title>
-    <para>Create a novarc file that can contain these variables that are used by the nova and glance clients. Make a directory to house these.</para>
+    <para>Create a novarc file that can contain these variables that
+        are used by the nova (Compute) and glance (Image) command-line
+        interface clients. Make a directory to house these.</para>
 
 <literallayout class="monospaced">mkdir ~/creds
 sudo nano ~/creds/novarc</literallayout>
     
     <para>In the novarc file you create, paste these values:</para>
-<literallayout class="monospaced">
-export NOVA_USERNAME=admin
-export NOVA_PROJECT_ID=openstackdemo
-export NOVA_PASSWORD=secretword
-export NOVA_API_KEY=secretword
-export NOVA_URL=http://192.168.206.130:5000/v2.0/
-export NOVA_VERSION=1.1
-export NOVA_REGION_NAME=RegionOne
-
-export OS_AUTH_USER=${NOVA_USERNAME}
-export OS_AUTH_KEY=${NOVA_PASSWORD}
-export OS_AUTH_TENANT=${NOVA_PROJECT_ID}
-export OS_AUTH_URL=${NOVA_URL}
-export OS_AUTH_STRATEGY=keystone
-</literallayout>
+<literallayout class="monospaced"><xi:include parse="text" href="samples/novarc.txt"/></literallayout>
     <para>Next, ensure these are used in your environment. </para>
-        <literallayout class="monospaced">
-cat ~/creds/novarc &gt;&gt; ~/.bashrc
+        <literallayout class="monospaced">cat ~/creds/novarc &gt;&gt; ~/.bashrc
         
 source ~/.bashrc</literallayout>
     

@@ -24,21 +24,22 @@
         </copyright>
         <releaseinfo>diablo-final</releaseinfo>
         <productname>OpenStack</productname>
-        <pubdate>2012-01-06</pubdate>
+        <pubdate>2012-01-09</pubdate>
         <legalnotice role="apache2">
             <annotation>
                 <remark>Copyright details are filled in by the template.</remark>
             </annotation>
         </legalnotice>
         <abstract>
-            <para>The OpenStack™ system has several key projects that are
-                separate installations but can work together depending on your
-                cloud needs: OpenStack Compute, OpenStack Object Storage,
-                OpenStack Identity Service, and OpenStack Image Service. You
-                can install any of these projects separately and then
-                configure them either as standalone or connected entities.
-                This guide walks through a few typical installations and
-                offers explanations for common configuration choices.</para>
+            <para>The OpenStack™ system has several key projects that
+                are separate installations but can work together
+                depending on your cloud needs: OpenStack Compute,
+                OpenStack Object Storage, OpenStack Identity Service,
+                and OpenStack Image Service. You can install any of
+                these projects separately and then configure them
+                either as standalone or connected entities. This guide
+                walks through an installation and offers explanations
+                for common configuration choices. </para>
         </abstract>
         <revhistory>
             <revision>

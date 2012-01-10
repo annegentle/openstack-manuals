@@ -13,18 +13,26 @@
     <para>
         <literallayout class="monospaced">sudo mkdir stackimages</literallayout>
     </para>
-    <para>Download the tty image into your stackimages
-        directory.</para>
+    <para>Download the tty image into your stackimages directory.</para>
     <para>
         <literallayout class="monospaced">sudo wget -c http://images.ansolabs.com/tty.tgz -O stackimages/tty.tgz</literallayout>
     </para>
     <para>Now expand the image.</para>
     <literallayout class="monospaced">sudo tar -zxf stackimages/tty.tgz -C stackimages</literallayout>
+    <para>
+        
+    </para>
+    <literallayout class="monospaced">
+        nova-manage image all_register --image=stackimages/ami-tty/image --kernel=stackimages/aki-tty/image --ram=stackimages/ari-tty/image --owner=demo --name=TTYImage --public=T 
+    </literallayout>
+    <remark>These commands have not tested consistently, either EHOSTUNREACH appears in the Dashboard after loading
+        images this way, or glance returns "Image Not Found" when running these. When using nova-manage image all_register I get a 401 error.</remark>
     <para>You can get a token in order to upload images using this
         curl command.</para>
     <para>
         <literallayout class="monospaced">curl -d '{"auth":{"passwordCredentials":{"username": "admin", "password": "secretword"}}}' -H "Content-type: application/json" http://192.168.206.130:35357/v2.0/tokens | python -mjson.tool</literallayout>
     </para>
+   
     <para>Now add the kernel image to the Image Service with glance
         add commands. In this case we're hard-coding the kernel_id and
         ramdisk_id values in the third command, but for additional
