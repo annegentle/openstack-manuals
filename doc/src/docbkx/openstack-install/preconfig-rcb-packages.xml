@@ -3,8 +3,8 @@
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
-    <title>Preconfiguring for Cloud Builders Packages</title>
-    <para>These packages are unsupported but known to work and are used by the Crowbar project and Rackspace Cloud Builders deployments. First, you need to add a signing key for the Cloud
+    <title>Preconfiguring with Cloud Builders Packages</title>
+    <para>These packages are used by the Crowbar project and Rackspace Cloud Builders deployments. However, there are no plans to maintain these packages. First, you need to add a signing key for the Cloud
         Builders repository that contains packages that are known
         and tested to work together, such as diablo-d5 or
         diablo-final. Once you add the signing key, you add a

@@ -87,11 +87,11 @@ bridge_stp off
 bridge_fd 0</literallayout></para>
             <para>Also install bridge-utils:</para>
         <literallayout class="monospaced">sudo apt-get install bridge-utils</literallayout>
-        <!--<para>Ensure that you set up the bridge, although if you use
+        <para>Ensure that you set up the bridge, although if you use
             -\-flat_network_bridge=br100 in your nova.conf file, nova
             will set up the bridge for you when you run the
             nova-manage network command. </para>
-        <literallayout class="monospaced">sudo brctl addbr br100</literallayout>-->
+        <literallayout class="monospaced">sudo brctl addbr br100</literallayout>
         <para>Lastly, restart networking to have these changes take
             effect. (This method is deprecated but "<code>restart
                 networking</code>" doesn't always work.)</para>
@@ -162,6 +162,11 @@ sudo chmod 640 /etc/nova/nova.conf</literallayout>
             sections:</para>
         <para><literallayout class="monospaced"><xi:include parse="text" href="samples/nova.conf"/>
 </literallayout></para>
+        <para>You also need to configure the api-paste.ini file to
+            enable Keystone as the Identity service. An example
+            <link linkend="api-paste-ini-file">api-paste.ini file</link> is included in the Appendix. Update the
+            /etc/nova/api-paste.ini file according to the sample
+            file.</para>
         <para>Restart the nova- services prior to running db
             sync.</para>
         <para>

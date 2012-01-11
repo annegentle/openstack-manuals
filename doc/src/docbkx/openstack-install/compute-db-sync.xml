@@ -23,5 +23,6 @@ sudo restart libvirt-bin
 sudo /etc/init.d/rabbitmq-server restart </literallayout>
     </para>
     <para>All nova services are now installed and started. If the
-        "restart" command doesn't work, you may need to use
-        "start" instead.</para></section>
+        "restart" command doesn't work, your services may not be
+        running correctly (or not at all). Review the logs in
+        /var/log/nova. </para></section>

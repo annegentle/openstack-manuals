@@ -26,7 +26,7 @@
      
     <para>Edit /etc/glance/glance-registry.conf: </para>
         <literallayout class="monospaced">sudo nano /etc/glance/glance-registry.conf</literallayout>
-        <para>An example glance-registry.conf file is included in the
+     <para>An example <link linkend="glance-registry-conf-file">glance-registry.conf file</link> is included in the
             Appendix.</para>
         <para>At the bottom of the glance-registry.conf file, change
             the admin_token to the one you created with Keystone
@@ -34,14 +34,15 @@
         <para>Edit /etc/glance/glance-api.conf: </para>
         <literallayout class="monospaced">sudo nano /etc/glance/glance-api.conf</literallayout>
         <para>Ensure that the auth sections match the ones in the
-            included example found in the Appendix. </para>
+            included <link linkend="glance-api-conf-file">glance-api.conf example file</link> found in the
+            Appendix. </para>
         <para>Restart the glance service after changing the settings
             in the glance-registry.conf and glance-api.conf. </para>
         <para>If you change the database you also update
-            glance-scrubber.conf to point to the MySQL database. </para>
-        <para>
+            <link linkend="glance-scrubber-conf-file">glance-scrubber.conf</link> to point to the MySQL database. </para>
+        
             <literallayout class="monospaced">sudo nano /etc/glance/glance-scrubber.conf</literallayout>
-        </para>
+       
         <para>Any time you change the .conf files, restart the
             corresponding service:</para>
       <literallayout class="monospaced">sudo restart glance-registry

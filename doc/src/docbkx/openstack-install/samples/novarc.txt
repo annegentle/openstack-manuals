@@ -1,5 +1,5 @@
-export NOVA_USERNAME=admin
-export NOVA_PROJECT_ID=openstackdemo
+export NOVA_USERNAME=adminUser
+export NOVA_PROJECT_ID=openstackDemo
 export NOVA_PASSWORD=secretword
 export NOVA_API_KEY=${NOVA_PASSWORD}
 export NOVA_URL=http://192.168.206.130:5000/v2.0/

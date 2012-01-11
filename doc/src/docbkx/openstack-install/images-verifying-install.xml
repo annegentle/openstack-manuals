@@ -14,9 +14,9 @@
     <literallayout class="monospaced">glance 2011.3</literallayout>
     <para>
         Another verification at this point for the Glance installation working with Keystone is to issue a glance details command 
-        with the admin token. If you get no errors (and no response) it means that the token is accepted by Keystone and no images are yet loaded to Glance.
-    </para>
+        with the adminUser token. If you get no errors (and no response) it means that the token is accepted by Keystone and no images are yet loaded to Glance.
+    If you get a "NotAuthorized" error, check your configuration files.</para>
     <literallayout class="monospaced">
-        glance details -A 112233445566778899
+        glance details -A 11121314151617181920
     </literallayout>
     </section>
