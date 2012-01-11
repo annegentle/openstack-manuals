@@ -25,4 +25,4 @@ sudo /etc/init.d/rabbitmq-server restart </literallayout>
     <para>All nova services are now installed and started. If the
         "restart" command doesn't work, your services may not be
         running correctly (or not at all). Review the logs in
-        /var/log/nova. </para></section>
+        /var/log/nova.</para></section>
