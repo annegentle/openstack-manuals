@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>com.rackspace.cloud.api</groupId>
                 <artifactId>clouddocs-maven-plugin</artifactId>
-                <version>1.0.8-SNAPSHOT</version>
+                <version>1.0.9</version>
                 <executions>
                     <execution>
                         <id>goal1</id>
@@ -115,7 +115,7 @@
                                 <!--Moves PDFs to the needed placement -->
                                
                                 <move failonerror="false"
-                                    file="${basedir}/target/docbkx/pdf/openstack-install-guide.pdf"
+                                    file="${basedir}/target/docbkx/pdf/bk_openstackinstallguide.pdf"
                                     tofile="${basedir}/target/docbkx/webhelp/trunk/openstack/install/os-install-guide-trunk.pdf"/>                
                                                        
                                 <!--Deletes leftover uneeded directories -->

@@ -6,11 +6,11 @@
     <title>Packaged Compute Installation with the Image and Identity
         Services</title>
     <para>The manual installation involves installing OpenStack
-        Compute from packages on Ubuntu 11.04 as a user named nova
-        with root permission. This guide is written with all commands
-        prefixed with sudo.</para>
-    <para>Our assumptions for this installation are that you
-        have a base Ubuntu Server 11.04 ready. For this
+        Compute from packages on Ubuntu 11.04 or 11.10 as a user named
+        nova with root permission. This guide is written with all
+        commands prefixed with sudo.</para>
+    <para>Our assumptions for this installation are that you have a
+        base Ubuntu Server 11.04 or 11.10 ready. For this
         installation, use the following assumptions:</para>
     <para>
         <itemizedlist>
@@ -37,8 +37,10 @@
                     guest VMs, connected to the host via br100.</para>
             </listitem>
             <listitem>
-                <para>FlatDHCP with a single network
-                    interface.</para>
+                <para>FlatDHCP with a single network interface.</para>
+            </listitem>
+            <listitem>
+                <para>KVM or QEMU as the hypervisor.</para>
             </listitem>
             <listitem>
                 <para>Ensure the operating system is
@@ -177,7 +179,7 @@ sudo restart nova-scheduler
 sudo restart nova-vncproxy</literallayout>
         </para>
         
-        <xi:include href="compute-db-sync.xml" />
+        <xi:include href="compute-db-sync.xml"/>
         <xi:include href="compute-create-network.xml" />
     </section>
     

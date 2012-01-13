@@ -15,7 +15,7 @@
 <mediaobject>
     <imageobject role="fo">
         <imagedata fileref="figures/dashboard-overview.png"
-            format="PNG" scale="60"/>
+            format="PNG" scale="30"/>
     </imageobject>
     <imageobject role="html">
         <imagedata fileref="figures/dashboard-overview.png"

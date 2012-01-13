@@ -31,9 +31,9 @@
         images, you need to get the return values for the first two
         commands to enter into the third command.  </para>
     <para>
-        <literallayout class="monospaced">glance add -A c9640d83-ef4f-4718-a0c2-32437a931196 name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
-glance add -A c9640d83-ef4f-4718-a0c2-32437a931196 name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
-glance add -A c9640d83-ef4f-4718-a0c2-32437a931196 name="tty" is_public=true container_format=ami disk_format=ami kernel_id=1 ramdisk_id=2 &lt; stackimages/ami-tty/image </literallayout>
+        <literallayout class="monospaced">glance add -A d1819479-be8b-451d-8682-82c654502ddb name="tty-kernel" is_public=true container_format=aki disk_format=aki &lt; stackimages/aki-tty/image 
+glance add -A d1819479-be8b-451d-8682-82c654502ddb name="tty-ramdisk" is_public=true container_format=ari disk_format=ari &lt; stackimages/ari-tty/image 
+glance add -A d1819479-be8b-451d-8682-82c654502ddb name="tty" is_public=true container_format=ami disk_format=ami kernel_id=1 ramdisk_id=2 &lt; stackimages/ami-tty/image </literallayout>
     </para>
     
     <para>For other images, you can get Ubuntu Natty (11.04) from

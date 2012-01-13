@@ -87,8 +87,9 @@
         maintained by community members, refer to <link
             xlink:href="http://wiki.openstack.org/Packaging"
             >http://wiki.openstack.org/Packaging</link> for additional
-        links. This guide refers to Rackspace Cloud Builder packages
-        for Ubuntu Maverick, Natty, or Oneiric.</para>
+        links. This guide refers to packages from two community
+        sources: Rackspace Cloud Builder packages for Ubuntu Maverick,
+        Natty, or Oneiric and Managed IT packages for Oneiric.</para>
     <para><emphasis role="bold">Database</emphasis>: For
         OpenStack Compute, you need access to either a PostgreSQL
         or MySQL database, or you can install it as part of the

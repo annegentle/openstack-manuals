@@ -9,16 +9,15 @@
      
     <section xml:id="glance-registry-conf-file"><title>glance-registry.conf</title><para>The Identity service's registry, which stores the metadata about
             images, is found in /etc/glance/glance-registry.conf. This
-            file needs to be modified after installing with the Cloud
-            Builders packages.     </para>
+            file needs to be modified after installing with the
+            packages. </para>
     
         <literallayout class="monospaced"><xi:include parse="text"
             href="samples/glance-registry.conf"/></literallayout></section>
     
     <section xml:id="glance-api-conf-file"><title>glance-api.conf</title><para>The configuration file for the Identity API is found in
             /etc/glance/glance-api.conf. You need to change this file
-            to look like this example after installing from Cloud
-            Builders packages.     </para>
+            to look like this example after installing from packages. </para>
         <literallayout class="monospaced"><xi:include parse="text"
             href="samples/glance-api.conf"/></literallayout></section>
     
@@ -28,10 +27,9 @@
             href="samples/glance-scrubber.conf"/></literallayout></section>
     
     <section xml:id="nova-conf-file"><title>nova.conf</title><para>The configuration file for Compute (nova) settings is stored in
-        /etc/nova/nova.conf. To see a list of all possible flags
-        for this file, you can run nova-&lt;service> --help from
-        the command line, for example, /bin/nova-api --help.
-    </para>
+            /etc/nova/nova.conf. To see a list of all possible flags
+            for this file, you can run nova-&lt;service> --help from
+            the command line, for example, nova-api --help. </para>
         <literallayout class="monospaced"><xi:include parse="text" href="samples/nova.conf"
         /></literallayout></section>
     <section xml:id="api-paste-ini-file"><title>api-paste.ini</title><para>The configuration file for Compute (Nova) for the EC2 API and
@@ -43,11 +41,16 @@
         Keystone configuration specified in the sample
         file below.</para>
         <literallayout class="monospaced">  <xi:include parse="text" href="samples/api-paste.ini"/></literallayout></section>
-    <section xml:id="novarc-file"><title>Credentials (novarc)</title><para>This file contains the credentials used by Compute and Identity
-            services, you can optionally store in /home/.novarc. The
-            important concept to avoid errors is to ensure that it is
-            sourced in the environment from which you issue commands.
-            Run "env | grep OS_" or "env | grep NOVA_" to view what is
-            being used in your environment</para>
-    <literallayout class="monospaced"><xi:include parse="text" href="samples/novarc.txt"/></literallayout></section>
+    <section xml:id="novarc-file"><title>Credentials (openrc)</title><para>This file contains the credentials used by Compute, Image, and
+            Identity services, you can optionally store in
+            /home/openrc. The important concept to avoid errors is to
+            ensure that it is sourced in the environment from which
+            you issue commands. Run "env | grep OS_" or "env | grep
+            NOVA_" to view what is being used in your
+            environment.</para>
+    <literallayout class="monospaced"><xi:include parse="text" href="samples/openrc.txt"/></literallayout></section>
+    
+    <section xml:id="local-settings-py-file"><title>Dashboard configuration</title><para>This file contains the database and configuration settings
+    for the OpenStack Dashboard.</para>
+        <literallayout class="monospaced"><xi:include parse="text" href="samples/local_settings.py"/></literallayout></section>
 </appendix>

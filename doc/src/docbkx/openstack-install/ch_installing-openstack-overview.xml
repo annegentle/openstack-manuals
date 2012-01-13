@@ -3,7 +3,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
     xml:id="ch_installing-openstack-overview">
-    <title>Installing OpenStack Walkthrough</title>
+    <title>Installing OpenStack Walk-through</title>
     <para>The OpenStack Compute and Image services work together to
         provide access to virtual servers and images through REST
         APIs. The Identity Service provides a common authorization
@@ -13,13 +13,13 @@
         OpenStack Object Storage service provides not only a storage
         method for virtual images but also a cloud-based object
         storage system with a REST API to store and retrieve objects
-        such as images or videos. This walkthrough starts with Compute
-        and related services and we will add Object Storage at a later
-        date.</para>
-    <para>This installation walkthrough goes through a very specific
-        path for installing OpenStack on Ubuntu 11.04 with root access
-        and specific configuration settings using MySQL for related
-        databases. Here are the overall steps:</para>
+        such as images or videos. This walk-through starts with
+        Compute and related services and we will add Object Storage at
+        a later date.</para>
+    <para>This installation walk-through goes through a very specific
+        path for installing OpenStack on Ubuntu 11.04 or 11.10 with
+        root access and specific configuration settings using MySQL
+        for related databases. Here are the overall steps:</para>
         <orderedlist>
             <listitem><para>Select a set of packages for your repository.</para></listitem>
         <listitem>

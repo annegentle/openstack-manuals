@@ -63,7 +63,7 @@ backend_entities = ['UserRoleAssociation', 'Endpoints', 'Role', 'Tenant',
         and the packages install a conf file with 5001 for the auth_port setting.
         <literallayout class="monospaced"><xi:include parse="text" href="samples/keystone.conf"></xi:include></literallayout></para>
     <para>Restart the Identity Service. </para>
-    <literallayout class="monospaced">sudo restart keystone</literallayout>
+    <literallayout class="monospaced">sudo service keystone restart</literallayout>
 <para>Next, you configure the Identity Service by defining roles and
         users. </para>
 </section>
