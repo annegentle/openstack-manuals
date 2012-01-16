@@ -8,7 +8,14 @@
     <xi:include href="install-config-glance.xml" />
     <xi:include href="configure-creds.xml" />
     <xi:include href="images-verifying-install.xml" />
-    <xi:include href="compute-packages-ubuntu-installation.xml" />
+    <xi:include href="compute-assumptions-installation.xml" />
+    <xi:include href="compute-config-guest-network.xml" />
+    <xi:include href="compute-database-mysql.xml"/>
+    <!--    <xi:include href="compute-database-postgresql.xml" /> -->   
+    <xi:include href="compute-cloud-controller.xml" />
+    <xi:include href="compute-minimum-configuration.xml" />
+    <xi:include href="compute-db-sync.xml"/>
+    <xi:include href="compute-create-network.xml" />
     <xi:include href="compute-verifying-install.xml" />
     
     <!--<xi:include href="installing-additional-compute-nodes.xml" />-->
