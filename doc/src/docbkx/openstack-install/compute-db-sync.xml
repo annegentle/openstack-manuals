@@ -14,12 +14,12 @@
     <para>On both nodes, restart all services in total, just to cover the entire
         spectrum: </para>
     <para>
-        <literallayout class="monospaced">sudo restart nova-api
-sudo restart nova-compute
-sudo restart nova-network
-sudo restart nova-scheduler
-sudo restart nova-vncproxy
-sudo restart libvirt-bin
+        <literallayout class="monospaced">sudo service nova-api restart
+sudo service nova-compute restart
+sudo service nova-network restart
+sudo service nova-scheduler restart
+sudo service nova-vncproxy restart
+sudo service libvirt-bin restart
 sudo /etc/init.d/rabbitmq-server restart </literallayout>
     </para>
     <para>All nova services are now installed and started. If the

@@ -19,8 +19,9 @@
             }
         }
         ...</literallayout>
-    <para>You can also get a token that expires in 24 hours using the demoUser account:</para>
-    <literallayout class="monospaced">curl -d '{"auth": {"tenantName": "openstackDemo", "passwordCredentials":{"username": "demoUser", "password": "secretword"}}}' -H "Content-type: application/json" http://192.168.206.130:35357/v2.0/tokens | python -mjson.tool</literallayout>
+    <para>You can also get a token that expires in 24 hours using the
+        adminUser account:</para>
+    <literallayout class="monospaced">curl -d '{"auth": {"tenantName": "openstackDemo", "passwordCredentials":{"username": "adminUser", "password": "secretword"}}}' -H "Content-type: application/json" http://192.168.206.130:35357/v2.0/tokens | python -mjson.tool</literallayout>
     <para>In return, you get the endpoints and token listed.</para>
     <literallayout class="monospaced">
         {

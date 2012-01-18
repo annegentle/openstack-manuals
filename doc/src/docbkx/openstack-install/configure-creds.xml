@@ -15,7 +15,8 @@ sudo nano ~/creds/openrc</literallayout>
 <literallayout class="monospaced"><xi:include parse="text" href="samples/openrc.txt"/></literallayout>
     <para>Next, ensure these are used in your environment. If you see
         401 Not Authorized errors on commands using tokens, ensure
-        that you have properly sourced your credentials.</para>
+        that you have properly sourced your credentials and that all
+        the pipelines are accurate in the configuration files.</para>
         <literallayout class="monospaced">source ~/creds/openrc</literallayout>
     
 </section>

@@ -57,10 +57,10 @@ sudo chmod 640 /etc/nova/nova.conf</literallayout>
     <para>Restart the nova- services prior to running db
         sync.</para>
     <para>
-        <literallayout class="monospaced">sudo restart nova-api
-sudo restart nova-compute
-sudo restart nova-network
-sudo restart nova-scheduler
-sudo restart nova-vncproxy</literallayout>
+        <literallayout class="monospaced">sudo service nova-api restart
+sudo service nova-compute restart
+sudo service nova-network restart
+sudo service nova-scheduler restart
+sudo service nova-vncproxy restart</literallayout>
     </para>
 </section>
