@@ -6,7 +6,7 @@
     <title>Installing and Configuring the Image Service</title>
     
     <para>Install the Image service:</para>
-    <literallayout class="monospaced">sudo apt-get install glance</literallayout>
+    <literallayout class="monospaced">sudo apt-get install glance python-httplib2 </literallayout>
     <para xmlns:svg="http://www.w3.org/2000/svg"
         xmlns:html="http://www.w3.org/1999/xhtml">After installing,
         you need to delete the sqlite database it creates, then change
@@ -42,7 +42,10 @@
             <link linkend="glance-scrubber-conf-file">glance-scrubber.conf</link> to point to the MySQL database. </para>
         
             <literallayout class="monospaced">sudo nano /etc/glance/glance-scrubber.conf</literallayout>
-       
+        <para>Ensure that the glance conf files are owned by a glance
+            user. </para>
+       <literallayout class="monospaced">sudo chown glance:glance /etc/glance/glance-registry.conf
+sudo chown glance:glance /etc/glance/glance-api.conf</literallayout>
         <para>Any time you change the .conf files, restart the
             corresponding service:</para>
       <literallayout class="monospaced">sudo service glance-registry restart

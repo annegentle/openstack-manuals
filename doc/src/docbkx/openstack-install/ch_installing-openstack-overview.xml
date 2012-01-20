@@ -21,7 +21,7 @@
         root access and specific configuration settings using MySQL
         for related databases. Here are the overall steps:</para>
         <orderedlist>
-            <listitem><para>Select a set of packages for your repository.</para></listitem>
+            <listitem><para>Select a set of packages from which to install.</para></listitem>
         <listitem>
             <para>Install the Identity Service (Keystone).</para>
         </listitem>
@@ -65,7 +65,6 @@
         </orderedlist>
     <xi:include href="compute-sys-requirements.xml" />
     <xi:include href="compute-network-planning.xml" />
-    <xi:include href="preconfig-rcb-packages.xml" />
     <xi:include href="preconfig-managedit-packages.xml" />
     <xi:include href="installing-ntp.xml" />
 </chapter>
